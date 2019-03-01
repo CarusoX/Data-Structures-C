@@ -3,48 +3,46 @@
 #include "assert.h"
 #include "T.h"
 
-typedef struct vector {
+typedef struct DYNAMIC_ARRAY* vector;
+
+struct DYNAMIC_ARRAY {
     // Data //
 
-    /* Data type */
-    int type;
     /* Array of struct T */
     struct T* array;
+    /* Data type */
+    int type;
     /* Number of elements stored */
     size_t sz;
     /* Total capacity */
     size_t capacity;
-    /* Auto reference */
-    struct vector* this;
 
     // Functions //
 
     /* Add element */
-    void (*push_back)(struct vector*, void*);
+    void (*push_back)(vector, void*);
     /* Remove element */
-    void (*pop_back)(struct vector*);
+    void (*pop_back)(vector);
     /* Get element at index i */
-    struct T* (*at)(struct vector*, int);
+    struct T* (*at)(vector, int);
     /* Clear vector */
-    void (*clear)(struct vector*);
+    void (*clear)(vector);
     /* Get size */
-    size_t (*size)(struct vector*);
+    size_t (*size)(vector);
     /* Get capacity */
-    size_t (*cap)(struct vector*);
-} vector;
+    size_t (*cap)(vector);
+};
 
-typedef struct vector* pvector;
+vector vector_init(int, size_t);
 
-void vector_init(pvector, int, size_t);
+void vector_push_back(vector, void*);
 
-void vector_push_back(pvector, void*);
+void vector_pop_back(vector);
 
-void vector_pop_back(pvector);
+struct T* vector_at(vector, int);
 
-struct T* vector_at(pvector, int);
+void vector_clear(vector);
 
-void vector_clear(pvector);
+size_t vector_size(vector);
 
-size_t vector_size(pvector);
-
-size_t vector_cap(pvector);
+size_t vector_cap(vector);

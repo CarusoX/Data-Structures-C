@@ -2,15 +2,16 @@
 
 #define fore(i, s, e) for(int i = s; i < e; i++)
 
-void vector_init(pvector v, int type, size_t cap) {
+vector vector_init(int type, size_t cap) {
     assert(0 < cap);
 
+    vector v = (vector)malloc(sizeof(struct DYNAMIC_ARRAY));
+
     // Grab data
-    v->type = type;
     v->array = (struct T*)malloc(cap * sizeof(struct T));
+    v->type = type;
     v->sz = 0;
     v->capacity = cap;
-    v->this = v;
 
     // Allocate functions
     v->push_back = vector_push_back;
@@ -19,9 +20,10 @@ void vector_init(pvector v, int type, size_t cap) {
     v->clear = vector_clear;
     v->size = vector_size;
     v->cap = vector_cap;
+    return v;
 }
 
-void vector_push_back(pvector v, void* elem) {
+void vector_push_back(vector v, void* elem) {
     if(v->sz == v->capacity) {
         v->capacity *= 2;
         v->array = (struct T*)realloc(v->array, v->capacity * sizeof(struct T));
@@ -36,27 +38,27 @@ void vector_push_back(pvector v, void* elem) {
     v->sz++;
 }
 
-void vector_pop_back(pvector v) {
+void vector_pop_back(vector v) {
     assert(0 < v->sz);
     v->sz--;
 }
 
-struct T* vector_at(pvector v, int p) {
+struct T* vector_at(vector v, int p) {
     assert(0 <= p && p < (int)v->sz);
     return v->array + p;
 }
 
-void vector_clear(pvector v) {
+void vector_clear(vector v) {
     free(v->array);
     v->array = NULL;
     v->sz = v->capacity = 0;
 }
 
-size_t vector_size(pvector v) {
+size_t vector_size(vector v) {
     return v->sz;
 }
 
-size_t vector_cap(pvector v) {
+size_t vector_cap(vector v) {
     return v->capacity;
 }
 
