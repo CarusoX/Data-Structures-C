@@ -42,7 +42,7 @@ void vector_pop_back(pvector v) {
 }
 
 struct T* vector_at(pvector v, int p) {
-    assert(0 <= p && p < v->sz);
+    assert(0 <= p && p < (int)v->sz);
     return v->array + p;
 }
 
