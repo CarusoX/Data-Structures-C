@@ -1,6 +1,3 @@
-#include "stdlib.h"
-#include "stdio.h"
-#include "assert.h"
 #include "rbtree.h"
 
 typedef struct BST* set;
@@ -8,7 +5,7 @@ typedef struct BST* set;
 struct BST {
     // Data //
 
-    /* Pointer to tree */
+    /* Pointer to an RBTree */
     tree bst;
     /* Data type */
     int type;
@@ -21,6 +18,8 @@ struct BST {
     void (*insert)(set, void*);
     /* Erase element */
     void (*erase)(set, void*);
+    /* Finds element and returns pointer to it, NULL otherwise */
+    tree (*find)(set, void*);
     /* Get size */
     size_t (*size)(set);
 };
@@ -28,4 +27,5 @@ struct BST {
 set set_init(int);
 void set_insert(set, void*);
 void set_erase(set, void*);
+tree set_find(set, void*);
 size_t set_size(set);

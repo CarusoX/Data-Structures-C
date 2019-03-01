@@ -1,6 +1,6 @@
-#include "stdlib.h"
-#include "stdio.h"
 #include "assert.h"
+#include "defs.h"
+#include "stdlib.h"
 
 typedef union Data {
     int i;
@@ -36,6 +36,8 @@ struct T {
     int (*less_than)(typeT, typeT);
     /* Greater than */
     int (*greater_than)(typeT, typeT);
+    /* Equals */
+    int (*equals)(typeT, typeT);
 };
 
 typeT T_init();
@@ -45,4 +47,5 @@ int T_get_type(typeT);
 data T_get_value(typeT);
 int T_less_than(typeT, typeT);
 int T_greater_than(typeT, typeT);
+int T_equals(typeT, typeT);
 

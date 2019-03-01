@@ -1,6 +1,6 @@
-#include "stdlib.h"
-#include "stdio.h"
 #include "assert.h"
+#include "defs.h"
+#include "stdlib.h"
 #include "T.h"
 
 typedef struct DYNAMIC_ARRAY* vector;
@@ -9,7 +9,7 @@ struct DYNAMIC_ARRAY {
     // Data //
 
     /* Array of struct T */
-    struct T** array;
+    typeT* array;
     /* Data type */
     int type;
     /* Number of elements stored */
@@ -24,7 +24,7 @@ struct DYNAMIC_ARRAY {
     /* Remove element */
     void (*pop_back)(vector);
     /* Get element at index i */
-    struct T* (*at)(vector, int);
+    typeT (*at)(vector, int);
     /* Clear vector */
     void (*clear)(vector);
     /* Get size */
@@ -37,7 +37,7 @@ void vector_push_back(vector, void*);
 
 void vector_pop_back(vector);
 
-struct T* vector_at(vector, int);
+typeT vector_at(vector, int);
 
 void vector_clear(vector);
 

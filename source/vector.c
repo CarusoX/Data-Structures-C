@@ -19,7 +19,6 @@ vector vector_init(int type, size_t cap) {
     v->at = vector_at;
     v->clear = vector_clear;
     v->size = vector_size;
-    v->cap = vector_cap;
     return v;
 }
 
@@ -30,9 +29,7 @@ void vector_push_back(vector v, void* elem) {
     }
 
     // Create struct T
-    typeT t = T_init();
-    t->set_type(t, v->type);
-    t->set_value(t, elem);
+    typeT t = T_init(v->type, elem);
 
     // Assign struct T
     v->array[v->sz] = t;
@@ -43,6 +40,7 @@ void vector_push_back(vector v, void* elem) {
 void vector_pop_back(vector v) {
     assert(0 < v->sz);
     v->sz--;
+    free(v->array[v->sz]);
 }
 
 typeT vector_at(vector v, int p) {
@@ -51,9 +49,9 @@ typeT vector_at(vector v, int p) {
 }
 
 void vector_clear(vector v) {
+    fore(i, 0, v->sz) free(v->array[i]);
     free(v->array);
-    v->array = NULL;
-    v->sz = v->capacity = 0;
+    free(v);
 }
 
 size_t vector_size(vector v) {

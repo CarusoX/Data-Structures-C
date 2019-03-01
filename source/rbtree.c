@@ -1,6 +1,7 @@
 #include "rbtree.h"
+#include "stdio.h"
 
-static void swap(int* a, int* b) {
+static inline void swap(int* a, int* b) {
     *a ^= *b;
     *b ^= *a;
     *a ^= *b;
@@ -12,137 +13,156 @@ static tree tree_parent(tree a) {
 
 static tree tree_grandparent(tree a) {
     tree p = tree_parent(a);
-    if(p == NULL) return NULL;
+    if(!p) return NULL;
     return tree_parent(p);
 }
 
 static tree tree_sibling(tree a) {
     tree p = tree_parent(a);
-    if(p == NULL) return NULL;
-    if(a == p->leftChild) return p->rightChild;
-    return p->leftChild;
+    if(!p) return NULL;
+    if(a == p->left) return p->right;
+    return p->left;
 }
 
 static tree tree_uncle(tree a) {
     tree p = tree_parent(a);
-    if(p == NULL) return p;
+    if(!p) return NULL;
     return tree_sibling(p);
 }
 
-tree tree_create(typeT t) {
-    tree g = (tree)malloc(sizeof(struct RBTree));
-    g->node = T_init();
-    g->node->iType = t->iType;
-    g->node->value = t->value;
-    g->leftChild = g->rightChild = g->parent = NULL;
-    g->color = RED;
-    return g;
-}
-
-tree tree_insert(tree current, tree t) {
-    if(current == NULL) {
-        printf("DONE\n");
-        return t;
-    }
-    if(current->parent != NULL) printf("I AM AT VERTEX: %d %d and it parent is: %d\n", current->node->value.i, current->color, current->parent->node->value.i);
-    else printf("I AM AT VERTEX: %d %d and it parent is: NULL\n", current->node->value.i, current->color);
-    if(t->node->less_than(t->node, (current->node))) {
-        current->leftChild = tree_insert(current->leftChild, t);
-        current->leftChild->parent = current;
-    } else if(t->node->greater_than(t->node, (current->node))) {
-        current->rightChild = tree_insert(current->rightChild, t);
-        current->rightChild->parent = current;
-    }
-    return current;
-}
-
-static void tree_rotateLeft(tree* root, tree P) { 
-    tree Q = P->rightChild;
-    P->rightChild = Q->leftChild;
-    if(P->rightChild != NULL) P->rightChild->parent = P;
+static void tree_rotateL(tree* root, tree P) { 
+    tree Q = P->right;
+    P->right = Q->left;
+    if(P->right != NULL) P->right->parent = P;
 
     if(P->parent == NULL) {
         *root = Q;
         Q->parent = NULL;
     }
-    else if(P->parent->rightChild == P) {
-        P->parent->rightChild = Q;
+    else if(P->parent->right == P) {
+        P->parent->right = Q;
         Q->parent = P->parent;
     } else {
-        P->parent->leftChild = Q;
-        Q->parent = P->parent->leftChild;
+        P->parent->left = Q;
+        Q->parent = P->parent->left;
     }
 
-    Q->leftChild = P;
+    Q->left = P;
     P->parent = Q;
 }
 
-static void tree_rotateRight(tree* root, tree Q) {
-    tree P = Q->leftChild;
-    Q->leftChild = P->rightChild;
-    if(Q->leftChild != NULL) Q->leftChild->parent = Q;
+static void tree_rotateR(tree* root, tree Q) {
+    tree P = Q->left;
+    Q->left = P->right;
+    if(Q->left != NULL) Q->left->parent = Q;
     
     if(Q->parent == NULL) {
         *root = P;
         P->parent = NULL;
     }
-    else if(Q->parent->leftChild == Q) {
-        Q->parent->leftChild = P;
+    else if(Q->parent->left == Q) {
+        Q->parent->left = P;
         P->parent = Q->parent;
     } else{
-        Q->parent->rightChild = P;
-        P->parent = Q->parent->rightChild;
+        Q->parent->right = P;
+        P->parent = Q->parent->right;
     }
 
-    P->rightChild = Q;
+    P->right = Q;
     Q->parent = P;
 }
 
+tree tree_create(typeT t) {
+    tree g = (tree)malloc(sizeof(struct RBTree));
+    g->node = t;
+    g->left = g->right = g->parent = NULL;
+    g->color = R;
+    return g;
+}
+
+tree tree_find(tree current, typeT t) {
+    if(!current) return NULL;
+
+    if(current->left && t->less_than(t, (current->node))) {
+        return tree_find(current->left, t);
+    } else if(current->right && t->greater_than(t, (current->node))) {
+        return tree_find(current->right, t);
+    }
+
+    return current;
+}
+
+tree tree_insert(tree w, tree t) {
+    if(t->node->less_than(t->node, w->node)) {
+        w->left = t;
+    } else {
+        w->right = t;
+    }
+    t->parent = w;
+}
+
 void tree_balance(tree* root, tree t) {
-    tree parent = tree_parent(t);
-    tree grandparent = tree_grandparent(t);
-    tree uncle = tree_uncle(t);
+    tree p = tree_parent(t);
+    tree g = tree_grandparent(t);
+    tree u = tree_uncle(t);
 
     // Case 1
-    if(parent == NULL) {
-        t->color = BLACK;
+    if(p == NULL) {
+        t->color = B;
         return;
     }
 
     // Case 2
-    if(parent->color == BLACK) {
+    if(p->color == B) {
         return;
     }
 
     // Case 3
-    if(uncle != NULL && uncle->color == RED) {
-        parent->color = BLACK;
-        uncle->color = BLACK;
-        grandparent->color = RED;
-        tree_balance(root, grandparent);
+    if(u != NULL && u->color == R) {
+        p->color = B;
+        u->color = B;
+        g->color = R;
+        tree_balance(root, g);
         return;
     }
 
     // Case 4
 
     /* First part */
-    tree GL = grandparent->leftChild;
-    tree GR = grandparent->rightChild;
-    if(GL != NULL && t == GL->rightChild) {
-        tree_rotateLeft(root, parent);
-        t = t->leftChild;
-    } else if(GR != NULL && t == GR->leftChild) {
-        tree_rotateRight(root, parent);
-        t = t->rightChild;
+    tree GL = g->left;
+    tree GR = g->right;
+    if(GL != NULL && t == GL->right) {
+        tree_rotateL(root, p);
+        t = t->left;
+    } else if(GR != NULL && t == GR->left) {
+        tree_rotateR(root, p);
+        t = t->right;
     }
     
     /* Second part */
-    if(t == parent->leftChild) tree_rotateRight(root, grandparent);
-    else tree_rotateLeft(root, grandparent);
+    if(t == p->left) tree_rotateR(root, g);
+    else tree_rotateL(root, g);
 
-    parent->color = BLACK;
-    grandparent->color = RED;
+    p->color = B;
+    g->color = R;
 
     return;
 }
 
+void print(tree t, int space) {
+    // Base case  
+    if (t == NULL)  
+        return;  
+  
+    // Increase distance between levels  
+    space += 10;  
+  
+    // Process right child first  
+    print(t->right, space);
+    printf("\n"); 
+    for (int i = 10; i < space; i++) printf(" ");
+    printf("%d %d\n", t->node->value.i, t->color);
+  
+    // Process left child  
+    print(t->left, space);
+}

@@ -1,19 +1,17 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "vector.h"
-
 #include "defs.h"
 
 
 int main() {
-    vector v = vector_init(3, 1);
-    fore(i, 0, 30) {
-        char c = i + 'a';
-        pb(v, c);
+    vector v = vector_init(1, 1);
+    fore(i, 0, 100000) {
+        push_back(v, i);
     }
-    fore(i, 0, 30) {
+    fore(i, 0, 100000) {
         struct T* t = at(v, i);
-        printf("%d %c\n", t->iType, t->value.c);
+        printf("%d %d\n", t->iType, t->value.i);
     }
     clear(v);
     return 0;

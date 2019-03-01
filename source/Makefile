@@ -19,4 +19,4 @@ run_vector_test_valgrind: vector_test
 run_set_test: set_test
 	./set_test
 clean:
-	rm -f vector_test *.o
+	rm -f vector_test set_test *.o

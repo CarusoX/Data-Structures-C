@@ -1,14 +1,19 @@
 #include "T.h"
 
-typeT T_init() {
+typeT T_init(int iType, void* value) {
     typeT t = (typeT)malloc(sizeof(struct T));
-    t->iType = 0;
+
     t->set_type = T_set_type;
     t->set_value = T_set_value;
     t->get_type = T_get_type;
     t->get_value = T_get_value;
     t->less_than = T_less_than;
     t->greater_than = T_greater_than;
+    t->equals = T_equals;
+
+    T_set_type(t, iType);
+    T_set_value(t, value);
+
     return t;
 }
 
@@ -32,8 +37,7 @@ void T_set_value(typeT t, void* value) {
             t->value.c = *(char*)value;
             break;
         default:
-            printf("Unkown error on T_set_value\n");
-            exit(-1);
+            assert(0);
             break;
     };
 }
@@ -52,4 +56,8 @@ int T_less_than(typeT a, typeT b) {
 
 int T_greater_than(typeT a, typeT b) {
     return a->value.i > b->value.i;
+}
+
+int T_equals(typeT a, typeT b) {
+    return a->value.i == b->value.i;
 }

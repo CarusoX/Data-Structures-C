@@ -6,3 +6,5 @@
 #define at(x, p)        x->at(x, p)
 #define clear(x)        x->clear(x)
 #define size(x)         x->size(x)
+#define set_type(x, t)  x->set_type(x, t)
+#define set_value(x, v) x->set_value(x, v)
