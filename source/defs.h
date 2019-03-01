@@ -1,0 +1,8 @@
+#define fore(i, s, e)   for(int i = s; i < e; i++)
+#define push_back(x, y) x->push_back(x, &y)
+#define insert(x, y)    x->insert(x, &y)
+#define erase(x, y)     x->erase(x, &y)   
+#define pop_back(x)     x->pop_back(x)
+#define at(x, p)        x->at(x, p)
+#define clear(x)        x->clear(x)
+#define size(x)         x->size(x)

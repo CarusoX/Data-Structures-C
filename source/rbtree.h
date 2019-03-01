@@ -3,29 +3,24 @@
 #include "assert.h"
 #include "T.h"
 
-struct RBTree {
-    // Data //
-
-    /* Current node data */
-    struct T node;
-    /* Current node color */
-    int color;
-    /* Left node */
-    struct RBTree* leftChild;
-    /* Right node */
-    struct RBTree* rightChild;
-
-    // Functions //
-
-    /* Insert element */
-    void (*insert)(struct RBTree*, struct T);
-    /* Erase element */
-    void (*erase)(struct RBTree*, struct T);
-};
+enum Colors {RED, BLACK};
 
 typedef struct RBTree* tree;
 
-void set_insert(tree, struct T);
-void set_erase(tree, struct T);
-// Rotate
-// Change color
+struct RBTree {
+    /* Current node data */
+    struct T* node;
+    /* Current node color */
+    int color;
+    /* Left node */
+    tree leftChild;
+    /* Right node */
+    tree rightChild;
+    /* Parent node */
+    tree parent;
+};
+
+tree tree_create();
+tree tree_insert(tree, tree);
+void tree_erase(tree, tree);
+void tree_balance(tree*, tree);

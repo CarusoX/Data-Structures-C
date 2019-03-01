@@ -9,7 +9,7 @@ struct DYNAMIC_ARRAY {
     // Data //
 
     /* Array of struct T */
-    struct T* array;
+    struct T** array;
     /* Data type */
     int type;
     /* Number of elements stored */
@@ -29,8 +29,6 @@ struct DYNAMIC_ARRAY {
     void (*clear)(vector);
     /* Get size */
     size_t (*size)(vector);
-    /* Get capacity */
-    size_t (*cap)(vector);
 };
 
 vector vector_init(int, size_t);
@@ -44,5 +42,3 @@ struct T* vector_at(vector, int);
 void vector_clear(vector);
 
 size_t vector_size(vector);
-
-size_t vector_cap(vector);

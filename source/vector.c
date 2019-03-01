@@ -8,7 +8,7 @@ vector vector_init(int type, size_t cap) {
     vector v = (vector)malloc(sizeof(struct DYNAMIC_ARRAY));
 
     // Grab data
-    v->array = (struct T*)malloc(cap * sizeof(struct T));
+    v->array = (struct T**)malloc(cap * sizeof(typeT));
     v->type = type;
     v->sz = 0;
     v->capacity = cap;
@@ -26,15 +26,17 @@ vector vector_init(int type, size_t cap) {
 void vector_push_back(vector v, void* elem) {
     if(v->sz == v->capacity) {
         v->capacity *= 2;
-        v->array = (struct T*)realloc(v->array, v->capacity * sizeof(struct T));
+        v->array = (struct T**)realloc(v->array, v->capacity * sizeof(typeT));
     }
 
-    struct T* t = &v->array[v->sz];
+    // Create struct T
+    typeT t = T_init();
+    t->set_type(t, v->type);
+    t->set_value(t, elem);
 
-    // Bind functions
-    T_init(t);
-    (*t).set_type(t, v->type);
-    (*t).set_value(t, elem);
+    // Assign struct T
+    v->array[v->sz] = t;
+
     v->sz++;
 }
 
@@ -43,9 +45,9 @@ void vector_pop_back(vector v) {
     v->sz--;
 }
 
-struct T* vector_at(vector v, int p) {
+typeT vector_at(vector v, int p) {
     assert(0 <= p && p < (int)v->sz);
-    return v->array + p;
+    return v->array[p];
 }
 
 void vector_clear(vector v) {
@@ -56,9 +58,5 @@ void vector_clear(vector v) {
 
 size_t vector_size(vector v) {
     return v->sz;
-}
-
-size_t vector_cap(vector v) {
-    return v->capacity;
 }
 

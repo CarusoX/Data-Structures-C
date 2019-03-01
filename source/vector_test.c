@@ -2,10 +2,7 @@
 #include "stdio.h"
 #include "vector.h"
 
-#define fore(i, s, e) for(int i = s; i < e; i++)
-#define pb(v, x) v->push_back(v, &x)
-#define at(v, p) v->at(v, p)
-#define clear(v) v->clear(v)
+#include "defs.h"
 
 
 int main() {
