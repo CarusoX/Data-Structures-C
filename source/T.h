@@ -2,11 +2,33 @@
 #include "defs.h"
 #include "stdlib.h"
 
+// typedef union Data { 0 undefined
+//     int i;           1
+//     long long l;     2
+//     char c;          3
+// } data;
+
+//Possible values of the pair
 typedef union Data {
-    int i;
-    long long l;
-    char c;
+	unsigned char uc;
+	signed char sc;
+	char c;
+	short int si;
+	unsigned short int usi;
+	int i;
+	unsigned int ui;
+	long int li;
+	unsigned long int uli;
+	long long int lli;
+	unsigned long long int ulli;
+	float f;
+	double d;
+	long double ld;
+	int* p_i;
+	char* p_c;
+	void* p_v;
 } data;
+
 
 typedef struct T* typeT;
 
@@ -14,9 +36,23 @@ struct T {
     // Data type //
     enum types {
         Undefined,
-        Int,
-        LongLong,
+        UChar,
+        SChar,
         Char,
+        SInt,
+        USInt,
+        Int,
+        UInt,
+        LInt,
+        ULInt,
+        LLInt,
+        ULLInt,
+        Float,
+        Double,
+        LDouble,
+        P_Int,
+        P_Char,
+        P_Void,
     } iType;
     
     // Union of possible values //
