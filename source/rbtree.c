@@ -44,7 +44,7 @@ static void tree_rotateL(tree* root, tree P) {
         Q->parent = P->parent;
     } else {
         P->parent->left = Q;
-        Q->parent = P->parent->left;
+        Q->parent = P->parent;
     }
 
     Q->left = P;
@@ -65,7 +65,7 @@ static void tree_rotateR(tree* root, tree Q) {
         P->parent = Q->parent;
     } else{
         Q->parent->right = P;
-        P->parent = Q->parent->right;
+        P->parent = Q->parent;
     }
 
     P->right = Q;
@@ -82,10 +82,9 @@ tree tree_create(typeT t) {
 
 tree tree_find(tree current, typeT t) {
     if(!current) return NULL;
-
-    if(current->left && t->less_than(t, (current->node))) {
+    if(current->left && less_than(t, current->node)) {
         return tree_find(current->left, t);
-    } else if(current->right && t->greater_than(t, (current->node))) {
+    } else if(current->right && greater_than(t, current->node)) {
         return tree_find(current->right, t);
     }
 
@@ -93,7 +92,7 @@ tree tree_find(tree current, typeT t) {
 }
 
 tree tree_insert(tree w, tree t) {
-    if(t->node->less_than(t->node, w->node)) {
+    if(less_than(t->node, w->node)) {
         w->left = t;
     } else {
         w->right = t;
@@ -134,9 +133,13 @@ void tree_balance(tree* root, tree t) {
     if(GL != NULL && t == GL->right) {
         tree_rotateL(root, p);
         t = t->left;
+        p = tree_parent(t);
+        g = tree_grandparent(t);
     } else if(GR != NULL && t == GR->left) {
         tree_rotateR(root, p);
         t = t->right;
+        p = tree_parent(t);
+        g = tree_grandparent(t);
     }
     
     /* Second part */
