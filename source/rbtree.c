@@ -119,8 +119,8 @@ void tree_erase_case2(tree n) {
 void tree_erase_case3(tree n) {
     tree s = tree_sibling(n);
 
-    if((n->parent->color == B) && (s->color == B) && (!s->left || s->left->color == B) && (!s->right || s->right->color == B)) {
-        s->color = R;
+    if((n->parent->color == B) && (!s || s->color == B) && (!s || !s->left || s->left->color == B) && (!s || !s->right || s->right->color == B)) {
+        if(s) s->color = R;
         tree_erase_case1(n->parent);
     } else {
         tree_erase_case4(n);
@@ -130,8 +130,8 @@ void tree_erase_case3(tree n) {
 void tree_erase_case4(tree n) {
     tree s = tree_sibling(n);
 
-    if((n->parent->color == R) && (s->color == B) && (!s->left || s->left->color == B) && (!s->right || s->right->color == B)) {
-        s->color = R;
+    if((n->parent->color == R) && (!s || s->color == B) && (!s || !s->left || s->left->color == B) && (!s || !s->right || s->right->color == B)) {
+        if(s) s->color = R;
         n->parent->color = B;
     } else {
         tree_erase_case5(n);
@@ -143,12 +143,12 @@ void tree_erase_case5(tree n) {
 
     if(s->color == B) {
         if ((n == n->parent->left) && (!s->right || s->right->color == B) && (s->left && s->left->color == R)) {
-            s->color = R;
-            s->left->color = B;
+            if(s) s->color = R;
+            if(s && s->left) s->left->color = B;
             tree_rotateR(s);
         } else if ((n == n->parent->right) && (!s->left || s->left->color == B) && (s->left && s->right->color == R)) {
-            s->color = R;
-            s->right->color = B;
+            if(s) s->color = R;
+            if(s && s->right) s->right->color = B;
             tree_rotateL(s);
         }
     }
@@ -159,14 +159,14 @@ void tree_erase_case6(tree n)
 {
     tree s = tree_sibling(n);
 
-    s->color = n->parent->color;
+    if(s) s->color = n->parent->color;
     n->parent->color = B;
 
     if (n == n->parent->left) {
-        s->right->color = B;
+        if(s && s->right) s->right->color = B;
         tree_rotateL(n->parent);
     } else {
-        s->left->color = B;
+        if(s && s->left) s->left->color = B;
         tree_rotateR(n->parent);
     }
 }

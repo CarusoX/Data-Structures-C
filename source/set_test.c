@@ -7,13 +7,13 @@ int main() {
     clock_t begin = clock();
     set s = set_init(1);
     srand(time(NULL));
-    fore(i, 0, 100000) {
-        int r = rand() % 100000;
-        insert(s, i);
+    fore(i, 0, 10000000) {
+        int r = rand() % 10000000;
+        insert(s, r);
     }
-    fore(i, 0, 100000) {
-        int r = rand() % 100000;
-        erase(s, i);
+    fore(i, 0, 10000000) {
+        int r = rand() % 10000000;
+        erase(s, r);
     }
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
