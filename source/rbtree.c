@@ -30,13 +30,12 @@ static tree tree_uncle(tree a) {
     return tree_sibling(p);
 }
 
-static void tree_rotateL(tree* root, tree P) { 
+static void tree_rotateL(tree P) { 
     tree Q = P->right;
     P->right = Q->left;
     if(P->right != NULL) P->right->parent = P;
 
     if(P->parent == NULL) {
-        *root = Q;
         Q->parent = NULL;
     }
     else if(P->parent->right == P) {
@@ -51,13 +50,12 @@ static void tree_rotateL(tree* root, tree P) {
     P->parent = Q;
 }
 
-static void tree_rotateR(tree* root, tree Q) {
+static void tree_rotateR(tree Q) {
     tree P = Q->left;
     Q->left = P->right;
     if(Q->left != NULL) Q->left->parent = Q;
     
     if(Q->parent == NULL) {
-        *root = P;
         P->parent = NULL;
     }
     else if(Q->parent->left == Q) {
@@ -100,7 +98,80 @@ tree tree_insert(tree w, tree t) {
     t->parent = w;
 }
 
-void tree_balance(tree* root, tree t) {
+void tree_erase_case1(tree n) {
+    if(n->parent) {
+        tree_erase_case2(n);
+    }
+}
+
+void tree_erase_case2(tree n) {
+    tree s = tree_sibling(n);
+
+    if(s != NULL && s->color == R) {
+        n->parent->color = R;
+        s->color = B;
+        if(n == n->parent->left) tree_rotateL(n->parent);
+        else tree_rotateR(n->parent);
+    }
+    tree_erase_case3(n);
+}
+
+void tree_erase_case3(tree n) {
+    tree s = tree_sibling(n);
+
+    if((n->parent->color == B) && (s->color == B) && (!s->left || s->left->color == B) && (!s->right || s->right->color == B)) {
+        s->color = R;
+        tree_erase_case1(n->parent);
+    } else {
+        tree_erase_case4(n);
+    }
+}
+
+void tree_erase_case4(tree n) {
+    tree s = tree_sibling(n);
+
+    if((n->parent->color == R) && (s->color == B) && (!s->left || s->left->color == B) && (!s->right || s->right->color == B)) {
+        s->color = R;
+        n->parent->color = B;
+    } else {
+        tree_erase_case5(n);
+    }
+}
+
+void tree_erase_case5(tree n) {
+    tree s = tree_sibling(n);
+
+    if(s->color == B) {
+        if ((n == n->parent->left) && (!s->right || s->right->color == B) && (s->left && s->left->color == R)) {
+            s->color = R;
+            s->left->color = B;
+            tree_rotateR(s);
+        } else if ((n == n->parent->right) && (!s->left || s->left->color == B) && (s->left && s->right->color == R)) {
+            s->color = R;
+            s->right->color = B;
+            tree_rotateL(s);
+        }
+    }
+    tree_erase_case6(n);
+}
+
+void tree_erase_case6(tree n)
+{
+    tree s = tree_sibling(n);
+
+    s->color = n->parent->color;
+    n->parent->color = B;
+
+    if (n == n->parent->left) {
+        s->right->color = B;
+        tree_rotateL(n->parent);
+    } else {
+        s->left->color = B;
+        tree_rotateR(n->parent);
+    }
+}
+
+void tree_balance(tree t) {
     tree p = tree_parent(t);
     tree g = tree_grandparent(t);
     tree u = tree_uncle(t);
@@ -121,7 +192,7 @@ void tree_balance(tree* root, tree t) {
         p->color = B;
         u->color = B;
         g->color = R;
-        tree_balance(root, g);
+        tree_balance(g);
         return;
     }
 
@@ -131,25 +202,33 @@ void tree_balance(tree* root, tree t) {
     tree GL = g->left;
     tree GR = g->right;
     if(GL != NULL && t == GL->right) {
-        tree_rotateL(root, p);
+        tree_rotateL(p);
         t = t->left;
         p = tree_parent(t);
         g = tree_grandparent(t);
     } else if(GR != NULL && t == GR->left) {
-        tree_rotateR(root, p);
+        tree_rotateR(p);
         t = t->right;
         p = tree_parent(t);
         g = tree_grandparent(t);
     }
     
     /* Second part */
-    if(t == p->left) tree_rotateR(root, g);
-    else tree_rotateL(root, g);
+    if(t == p->left) tree_rotateR(g);
+    else tree_rotateL(g);
 
     p->color = B;
     g->color = R;
 
     return;
+}
+
+void tree_replace(tree t, tree s) {
+    s->parent = t->parent;
+    if(t->parent) {
+        if(t == t->parent->left) t->parent->left = s;
+        else t->parent->right = s;
+    }
 }
 
 void print(tree t, int space) {

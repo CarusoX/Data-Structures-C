@@ -33,9 +33,16 @@ tree tree_create();
 tree tree_insert(tree, tree);
 // Returns the matching node, or where should it be attached
 tree tree_find(tree, typeT);
-// Erase an element
-void tree_erase(tree, tree);
+// Erase has 6 cases //
+void tree_erase_case1(tree);
+void tree_erase_case2(tree);
+void tree_erase_case3(tree);
+void tree_erase_case4(tree);
+void tree_erase_case5(tree);
+void tree_erase_case6(tree);
 // Restore the violation of the 4 properties after an insert
-void tree_balance(tree*, tree);
-
+void tree_balance(tree);
+// Replace a node with another
+void tree_replace(tree, tree);
+// Print the tree
 void print(tree, int);
