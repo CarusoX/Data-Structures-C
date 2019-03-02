@@ -1,6 +1,7 @@
 #include "assert.h"
 #include "defs.h"
 #include "stdlib.h"
+#include "stdio.h"
 
 // typedef union Data { 0 undefined
 //     int i;           1
@@ -24,6 +25,8 @@ typedef union Data {
 	float f;
 	double d;
 	long double ld;
+    pair p;
+    stack s;
 	int* p_i;
 	char* p_c;
 	void* p_v;
@@ -50,6 +53,8 @@ struct T {
         Float,
         Double,
         LDouble,
+        Pair,
+        Stack,
         P_Int,
         P_Char,
         P_Void,
