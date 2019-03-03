@@ -5,7 +5,7 @@
 
 typedef struct DYNAMIC_ARRAY* vector;
 
-struct DYNAMIC_ARRAY {
+typedef struct DYNAMIC_ARRAY {
     // Data //
 
     /* Array of struct T */
@@ -29,7 +29,7 @@ struct DYNAMIC_ARRAY {
     void (*clear)(vector);
     /* Get size */
     size_t (*size)(vector);
-};
+} d_array;
 
 vector vector_init(int, size_t);
 

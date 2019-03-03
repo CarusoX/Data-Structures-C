@@ -1,4 +1,4 @@
-#include "bst.h"
+#include "set.h"
 #include "defs.h"
 #include "stdlib.h"
 #include "stdio.h"

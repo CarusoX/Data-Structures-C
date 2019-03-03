@@ -1,7 +1,7 @@
 #include "T.h"
 
 typeT T_init(int iType, void* value) {
-    typeT t = (typeT)malloc(sizeof(struct T));
+    typeT t = (typeT)malloc(sizeof(T));
 
     t->set_type = T_set_type;
     t->set_value = T_set_value;
