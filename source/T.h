@@ -1,23 +1,60 @@
 #include "assert.h"
 #include "defs.h"
 #include "stdlib.h"
+#include "stdio.h"
 
+//Possible values of the pair
 typedef union Data {
-    int i;
-    long long l;
-    char c;
+	unsigned char uc;               //  1
+	signed char sc;                 //  2
+	char c;                         //  3
+	short int si;                   //  4
+	unsigned short int usi;         //  5
+	int i;                          //  6
+	unsigned int ui;                //  7
+	long int li;                    //  8
+	unsigned long int uli;          //  9
+	long long int lli;              // 10
+	unsigned long long int ulli;    // 11
+	float f;                        // 12
+	double d;                       // 13
+	long double ld;                 // 14
+    //pair p;
+    //stack s;
+	int* p_i;                       // 15
+	char* p_c;                      // 16
+	void* p_v;                      // 17
 } data;
+
+// Data type //
+enum type {
+    Undefined,                      //  0
+    UChar,                          //  1
+    SChar,                          //  2
+    Char,                           //  3
+    SInt,                           //  4
+    USInt,                          //  5
+    Int,                            //  6
+    UInt,                           //  7
+    LInt,                           //  8
+    ULInt,                          //  9
+    LLInt,                          // 10
+    ULLInt,                         // 11
+    Float,                          // 12
+    Double,                         // 13
+    LDouble,                        // 14
+    //Pair,
+    //Stack,
+    P_Int,                          // 15
+    P_Char,                         // 16
+    P_Void,                         // 17
+} iType;
 
 typedef struct T* typeT;
 
 struct T {
-    // Data type //
-    enum types {
-        Undefined,
-        Int,
-        LongLong,
-        Char,
-    } iType;
+    
+    enum types iType;
     
     // Union of possible values //
     data value;
