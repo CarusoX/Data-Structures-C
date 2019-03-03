@@ -100,39 +100,39 @@ int T_less_than(typeT a, typeT b) {
     assert(aType == bType);
 
     switch(aType) {
-        case 1:
+        case UChar:
             return a->value.uc < b->value.uc;
-        case 2:
+        case SChar:
             return a->value.sc < b->value.sc;
-        case 3:
+        case Char:
             return a->value.c < b->value.c;
-        case 4:
+        case SInt:
             return a->value.si < b->value.si;
-        case 5:
+        case USInt:
             return a->value.usi < b->value.usi;
-        case 6:
+        case Int:
             return a->value.i < b->value.i;
-        case 7:
+        case UInt:
             return a->value.ui < b->value.ui;
-        case 8:
-            return a->value.li < b->value.li;
-        case 9:
-            return a->value.uli < b->value.uli;
-        case 10:
-            return a->value.lli < b->value.lli;
-        case 11:
-            return a->value.ulli < b->value.ulli;
-        case 12:
+        case LInt:
+            return b->value.li < a->value.li;
+        case ULInt:
+            return b->value.uli < a->value.uli;
+        case LLInt:
+            return b->value.lli < a->value.lli;
+        case ULLInt:
+            return b->value.ulli < a->value.ulli;
+        case Float:
             return a->value.f < b->value.f - 0.00001;
-        case 13:
-            return a->value.d < b->value.d - 0.0000001;
-        case 14:
-            return a->value.ld < b->value.ld - 0.000000001;
-        case 15:
-            return *(a->value.p_i) < *(b->value.p_i);
-        case 16:
-            return *(a->value.p_c) < *(b->value.p_c);
-        case 17:
+        case Double:
+            return a->value.f < b->value.f - 0.0000001;
+        case LDouble:
+            return a->value.f < b->value.f - 0.000000001;
+        case P_Int:
+            return *(a->value.p_i) > *(b->value.p_i);
+        case P_Char:
+            return *(a->value.p_c) > *(b->value.p_c);
+        case P_Void:
             return 0;
         default:
             printf("Unkown error on T_greather_than\n");
@@ -151,39 +151,39 @@ int T_greater_than(typeT a, typeT b) {
     assert(aType == bType);
 
     switch(aType) {
-        case 1:
+        case UChar:
             return a->value.uc > b->value.uc;
-        case 2:
+        case SChar:
             return a->value.sc > b->value.sc;
-        case 3:
+        case Char:
             return a->value.c > b->value.c;
-        case 4:
+        case SInt:
             return a->value.si > b->value.si;
-        case 5:
+        case USInt:
             return a->value.usi > b->value.usi;
-        case 6:
+        case Int:
             return a->value.i > b->value.i;
-        case 7:
+        case UInt:
             return a->value.ui > b->value.ui;
-        case 8:
-            return a->value.li > b->value.li;
-        case 9:
-            return a->value.uli > b->value.uli;
-        case 10:
-            return a->value.lli > b->value.lli;
-        case 11:
-            return a->value.ulli > b->value.ulli;
-        case 12:
+        case LInt:
+            return b->value.li > a->value.li;
+        case ULInt:
+            return b->value.uli > a->value.uli;
+        case LLInt:
+            return b->value.lli > a->value.lli;
+        case ULLInt:
+            return b->value.ulli > a->value.ulli;
+        case Float:
             return a->value.f > b->value.f + 0.00001;
-        case 13:
-            return a->value.d > b->value.d + 0.0000001;
-        case 14:
-            return a->value.ld > b->value.ld + 0.000000001;
-        case 15:
+        case Double:
+            return a->value.f > b->value.f + 0.0000001;
+        case LDouble:
+            return a->value.f > b->value.f + 0.000000001;
+        case P_Int:
             return *(a->value.p_i) > *(b->value.p_i);
-        case 16:
+        case P_Char:
             return *(a->value.p_c) > *(b->value.p_c);
-        case 17:
+        case P_Void:
             return 0;
         default:
             printf("Unkown error on T_greather_than\n");
@@ -202,39 +202,39 @@ int T_equals(typeT a, typeT b) {
     assert(aType == bType);
 
     switch(aType) {
-        case 1:
+        case UChar:
             return a->value.uc == b->value.uc;
-        case 2:
+        case SChar:
             return a->value.sc == b->value.sc;
-        case 3:
+        case Char:
             return a->value.c == b->value.c;
-        case 4:
+        case SInt:
             return a->value.si == b->value.si;
-        case 5:
+        case USInt:
             return a->value.usi == b->value.usi;
-        case 6:
+        case Int:
             return a->value.i == b->value.i;
-        case 7:
+        case UInt:
             return a->value.ui == b->value.ui;
-        case 8:
+        case LInt:
             return b->value.li == a->value.li;
-        case 9:
+        case ULInt:
             return b->value.uli == a->value.uli;
-        case 10:
+        case LLInt:
             return b->value.lli == a->value.lli;
-        case 11:
+        case ULLInt:
             return b->value.ulli == a->value.ulli;
-        case 12:
+        case Float:
             return abs(a->value.f - b->value.f) > 0.00001;
-        case 13:
+        case Double:
             return abs(a->value.f - b->value.f) > 0.0000001;
-        case 14:
+        case LDouble:
             return abs(a->value.f - b->value.f) > 0.000000001;
-        case 15:
+        case P_Int:
             return *(a->value.p_i) == *(b->value.p_i);
-        case 16:
+        case P_Char:
             return *(a->value.p_c) == *(b->value.p_c);
-        case 17:
+        case P_Void:
             return 0;
         default:
             printf("Unkown error on T_greather_than\n");
