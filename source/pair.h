@@ -13,19 +13,19 @@ struct Pair {
 	// Function pointers //
 
 	/* Set the first element of the pair */
-	void (*set_first)(pair p, void* value);
+	void (*set_first)(pair, void*);
 	/* Get the first element of the pair */
-	data (*get_first)(pair p);
+	data (*get_first)(pair);
 	/* Get the type of the first element */
-	int (*get_first_type)(pair p);
+	int (*get_first_type)(pair);
 	/* Set the second element of the pair */
-	void (*set_second)(pair p, void* value);
+	void (*set_second)(pair, void*);
 	/* Get the second element of the pair */
-	data (*get_second)(pair p);
+	data (*get_second)(pair);
 	/* Get the type of the second element */
-	int (*get_second_type)(pair p);
+	int (*get_second_type)(pair);
 	/* Set the two elements */
-	void (*set)(pair p, void* v1, void* v2, int t1, int t2);
+	void (*set)(pair, void*, void*, int, int);
 
 };
 

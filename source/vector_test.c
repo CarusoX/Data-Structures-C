@@ -5,7 +5,7 @@
 
 
 int main() {
-    vector v = vector_init(1, 1);
+    vector v = vector_init(Int, 1);
     fore(i, 0, 100000) {
         push_back(v, i);
     }

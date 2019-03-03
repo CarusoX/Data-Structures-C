@@ -25,6 +25,8 @@ struct DYNAMIC_ARRAY {
     void (*pop_back)(vector);
     /* Get element at index i */
     typeT (*at)(vector, int);
+    /**/
+    void (*push_at)(vector, typeT, int);
     /* Clear vector */
     void (*clear)(vector);
     /* Get size */
@@ -38,6 +40,8 @@ void vector_push_back(vector, void*);
 void vector_pop_back(vector);
 
 typeT vector_at(vector, int);
+
+void vector_push_at(vector v, typeT val, int p);
 
 void vector_clear(vector);
 

@@ -27,19 +27,19 @@ struct Stack {
 	// Function pointers //
 
 	/* Returns top element in stack */
-	data (*top)(stack s);
+	data (*top)(stack);
 	/* Push an element in the stack */
-	void (*push)(stack s, void* elem);
+	void (*push)(stack, void*);
 	/* Pop the last element in the stack */
-	void (*pop)(stack s);
+	void (*pop)(stack);
 	/* Returns the type of the top element in the stack */
-	int (*top_type)(stack s);
+	int (*top_type)(stack);
 	/* Returns true if the stack is empty */
-	bool (*empty)(stack s);
+	bool (*empty)(stack);
 	/* Returns stack size */
-	size_t (*size)(stack s);
+	size_t (*size)(stack);
 	/* Frees the memory used by the stack */
-	void (*clear)(stack s);
+	void (*clear)(stack);
 
 };
 
