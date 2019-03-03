@@ -1,7 +1,7 @@
+#include "defs.h"
 #include "stdlib.h"
 #include "stdio.h"
 #include "vector.h"
-#include "defs.h"
 
 
 int main() {
@@ -11,6 +11,7 @@ int main() {
     }
     fore(i, 0, 100000) {
         struct T* t = at(v, i);
+        // printf("%d\n", t->value.i);
     }
     clear(v);
     return 0;

@@ -12,3 +12,7 @@
 #define less_than(x, y)     x->less_than(x, y)
 #define greater_than(x, y)  x->greater_than(x, y)
 #define equals(x, y)        x->equals(x, y)
+#define push(x, y)          x->push(x, &y)
+#define pop(x)              x->pop(x)
+#define top(x)              x->top(x)
+#define top_type(x)         x->top_type(x)
