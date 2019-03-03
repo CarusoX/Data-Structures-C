@@ -9,6 +9,7 @@ set set_init(int type) {
     s->insert = set_insert;
     s->erase = set_erase;
     s->find = set_find;
+    s->clear = set_clear;
     s->size = set_size;
     return s;
 }
@@ -16,22 +17,37 @@ set set_init(int type) {
 void set_insert(set s, void* elem) {
     // Create the struct T
     typeT t = T_init(s->type, elem);
+
     // Is it already?
     tree res = tree_find(s->bst, t);
-    if(!res) {
+
+    if(!s->sz) {
         // Empty tree
         tree node = tree_create(t);
+
         s->bst = node;
+
+        // Root is black
         s->bst->color = B;
+
         s->sz++;
     } else if(equals(t, res->node)) {
+        // Already on tree
         free(t);
     } else {
+        // Not on set
         tree node = tree_create(t);
+
+        // Attach node
         tree_insert(res, node);
+
+        // Restore balance
         tree_balance(node);
+
+        // Retrieve possible new root
         s->bst = node;
         while(s->bst->parent) s->bst = s->bst->parent;
+
         s->sz++;
     }
 }
@@ -43,8 +59,13 @@ void set_erase(set s, void* elem) {
     // Find element
     tree r = tree_find(s->bst, t);
     
-    // If set is empty or elem does not belong to s
-    if(!r || !equals(r->node, t)) return;
+    // If set is empty or elem does not belong to s return
+    if(!r || !equals(r->node, t)) {
+        free(t);
+        return;
+    }
+
+    free(t);
 
     tree node = r;
 
@@ -96,6 +117,7 @@ void set_erase(set s, void* elem) {
 
     free(r->node);
     free(r);
+    s->sz--;
 }
 
 tree set_find(set s, void * elem) {
@@ -107,6 +129,17 @@ tree set_find(set s, void * elem) {
     }
     free(t);
     return NULL;
+}
+
+void set_clear(set s) {
+    tree_clear(s->bst);
+    free(s);
+}
+
+void set_checker(set s) {
+    int x = 0;
+    int d = tree_checker(s->bst, &x, 0);
+    assert(d == s->sz);
 }
 
 size_t set_size(set s) {

@@ -14,9 +14,13 @@ run_vector_test: vector_test
 	./vector_test
 
 run_vector_test_valgrind: vector_test
-	valgrind --show-reachable=yes --leak-check=full  ./vector_test
+	valgrind --show-reachable=yes --leak-check=full ./vector_test
 
 run_set_test: set_test
 	./set_test
+
+run_set_test_valgrind: set_test
+	valgrind --show-reachable=yes --leak-check=full ./set_test
+
 clean:
 	rm -f vector_test set_test *.o

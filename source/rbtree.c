@@ -1,12 +1,6 @@
 #include "rbtree.h"
 #include "stdio.h"
 
-static inline void swap(int* a, int* b) {
-    *a ^= *b;
-    *b ^= *a;
-    *a ^= *b;
-}
-
 static tree tree_parent(tree a) {
     return a->parent;
 }
@@ -89,13 +83,21 @@ tree tree_find(tree current, typeT t) {
     return current;
 }
 
-tree tree_insert(tree w, tree t) {
-    if(less_than(t->node, w->node)) {
-        w->left = t;
+void tree_clear(tree cur) {
+    if(!cur) return;
+    tree_clear(cur->left);
+    tree_clear(cur->right);
+    free(cur->node);
+    free(cur);
+}
+
+tree tree_insert(tree p, tree c) {
+    if(less_than(c->node, p->node)) {
+        p->left = c;
     } else {
-        w->right = t;
+        p->right = c;
     }
-    t->parent = w;
+    c->parent = p;
 }
 
 void tree_erase_case1(tree n) {
@@ -141,12 +143,12 @@ void tree_erase_case4(tree n) {
 void tree_erase_case5(tree n) {
     tree s = tree_sibling(n);
 
-    if(s->color == B) {
+    if(s && s->color == B) {
         if ((n == n->parent->left) && (!s->right || s->right->color == B) && (s->left && s->left->color == R)) {
             if(s) s->color = R;
             if(s && s->left) s->left->color = B;
             tree_rotateR(s);
-        } else if ((n == n->parent->right) && (!s->left || s->left->color == B) && (s->left && s->right->color == R)) {
+        } else if ((n == n->parent->right) && (!s->left || s->left->color == B) && (s->right && s->right->color == R)) {
             if(s) s->color = R;
             if(s && s->right) s->right->color = B;
             tree_rotateL(s);
@@ -247,4 +249,24 @@ void print(tree t, int space) {
   
     // Process left child  
     print(t->left, space);
+}
+
+int tree_checker(tree t, int* c, int d) {
+    int r = 0;
+    if(t == NULL) {
+        if(*c == 0) *c = d;
+        else assert(*c == d);
+        return r;
+    }
+    r = 1;
+    if(t->color == R) {
+        if(t->left) assert(t->left->color != R);
+        if(t->right) assert(t->right->color != R);
+        r += tree_checker(t->left, c, d);
+        r += tree_checker(t->right, c, d);
+    } else {
+        r += tree_checker(t->left, c, d + 1);
+        r += tree_checker(t->right, c, d + 1);
+    }
+    return r;
 }

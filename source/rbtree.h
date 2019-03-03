@@ -33,6 +33,8 @@ tree tree_create();
 tree tree_insert(tree, tree);
 // Returns the matching node, or where should it be attached
 tree tree_find(tree, typeT);
+// Clear tree //
+void tree_clear(tree);
 // Erase has 6 cases //
 void tree_erase_case1(tree);
 void tree_erase_case2(tree);
@@ -44,5 +46,7 @@ void tree_erase_case6(tree);
 void tree_balance(tree);
 // Replace a node with another
 void tree_replace(tree, tree);
+// Chech if tree is a RBTree
+int tree_checker(tree, int*, int);
 // Print the tree
 void print(tree, int);

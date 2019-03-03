@@ -20,6 +20,8 @@ struct BST {
     void (*erase)(set, void*);
     /* Finds element and returns pointer to it, NULL otherwise */
     tree (*find)(set, void*);
+    /* Clear set */
+    void (*clear)(set);
     /* Get size */
     size_t (*size)(set);
 };
@@ -28,4 +30,6 @@ set set_init(int);
 void set_insert(set, void*);
 void set_erase(set, void*);
 tree set_find(set, void*);
+void set_clear(set);
+void set_checker(set);
 size_t set_size(set);
