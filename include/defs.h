@@ -16,3 +16,7 @@
 #define pop(x)              x->pop(x)
 #define top(x)              x->top(x)
 #define top_type(x)         x->top_type(x)
+#define set_first(x, y)     x->set_first(x, &y)
+#define set_second(x, y)    x->set_second(x, &y)
+#define get_first(x)        x->get_first(x)
+#define get_second(x)       x->get_second(x)
