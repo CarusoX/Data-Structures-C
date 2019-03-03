@@ -5,15 +5,15 @@
 #include "time.h"
 int main() {
     clock_t begin = clock();
-    set s = set_init(1);
+    set s = set_init(Int);
     srand(time(NULL));
-    fore(i, 0, 100000) {
+    fore(i, 0, 1000000) {
         int r = rand() % 2;
         int l = rand();
         if(r) {
             insert(s, i);
         } else {
-            erase(s, l);
+            erase(s, i);
         }
     }
     clock_t end = clock();

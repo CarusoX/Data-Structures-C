@@ -27,7 +27,7 @@ typedef union Data {
 } data;
 
 // Data type //
-enum type {
+enum types {
     Undefined,                      //  0
     UChar,                          //  1
     SChar,                          //  2
@@ -48,7 +48,7 @@ enum type {
     P_Int,                          // 15
     P_Char,                         // 16
     P_Void,                         // 17
-} iType;
+};
 
 typedef struct T* typeT;
 

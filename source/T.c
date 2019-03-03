@@ -25,62 +25,59 @@ void T_set_value(typeT t, void* value) {
     assert(t->iType != 0);
     
     switch(t->iType) {
-        case 1:
+        case UChar:
             t->value.uc = *(unsigned char*)value;
             break;
-        case 2:
+        case SChar:
             t->value.sc = *(signed char*)value;
             break;
-        case 3:
+        case Char:
             t->value.c = *(char*)value;
             break;
-        case 4:
+        case SInt:
             t->value.si = *(short int*)value;
             break;
-        case 5:
+        case USInt:
             t->value.usi = *(unsigned short int*)value;
             break;
-        case 6:
+        case Int:
             t->value.i = *(int*)value;
             break;
-        case 7:
+        case UInt:
             t->value.ui = *(unsigned int*)value;
             break;
-        case 8:
+        case LInt:
             t->value.li = *(long int*)value;
             break;
-        case 9:
+        case ULInt:
             t->value.uli = *(unsigned long int*)value;
             break;
-        case 10:
+        case LLInt:
             t->value.lli = *(long long int*)value;
             break;
-        case 11:
+        case ULLInt:
             t->value.ulli = *(unsigned long long int*)value;
             break;
-        case 12:
+        case Float:
             t->value.f = *(float*)value;
             break;
-        case 13:
+        case Double:
             t->value.d = *(double*)value;
             break;
-        case 14:
+        case LDouble:
             t->value.ld = *(long double*)value;
             break;
-        case 15:
+        case P_Int:
             t->value.p_i = (int*)value;
             break;
-        case 16:
+        case P_Char:
             t->value.p_c = (char*)value;
             break;
-        case 17:
+        case P_Void:
             t->value.p_v = (void*)value;
             break;
         default:
-            printf("Unkown error on T_set_value\n");
             assert(0);
-            exit(-1);
-            break;
     };
 }
 
@@ -123,11 +120,11 @@ int T_less_than(typeT a, typeT b) {
         case ULLInt:
             return b->value.ulli < a->value.ulli;
         case Float:
-            return a->value.f < b->value.f - 0.00001;
+            return a->value.f + 0.00001 < b->value.f;
         case Double:
-            return a->value.f < b->value.f - 0.0000001;
+            return a->value.f + 0.0000001 < b->value.f;
         case LDouble:
-            return a->value.f < b->value.f - 0.000000001;
+            return a->value.f + 0.000000001 < b->value.f;
         case P_Int:
             return *(a->value.p_i) > *(b->value.p_i);
         case P_Char:
@@ -135,12 +132,8 @@ int T_less_than(typeT a, typeT b) {
         case P_Void:
             return 0;
         default:
-            printf("Unkown error on T_greather_than\n");
             assert(0);
-            exit(-1);
-            break;
     };
-    exit(-1);
 }
 
 int T_greater_than(typeT a, typeT b) {
@@ -186,12 +179,8 @@ int T_greater_than(typeT a, typeT b) {
         case P_Void:
             return 0;
         default:
-            printf("Unkown error on T_greather_than\n");
             assert(0);
-            exit(-1);
-            break;
     };
-    exit(-1);
 }
 
 int T_equals(typeT a, typeT b) {
@@ -225,11 +214,11 @@ int T_equals(typeT a, typeT b) {
         case ULLInt:
             return b->value.ulli == a->value.ulli;
         case Float:
-            return abs(a->value.f - b->value.f) > 0.00001;
+            return abs(a->value.f - b->value.f) < 0.00001;
         case Double:
-            return abs(a->value.f - b->value.f) > 0.0000001;
+            return abs(a->value.d - b->value.d) < 0.0000001;
         case LDouble:
-            return abs(a->value.f - b->value.f) > 0.000000001;
+            return abs(a->value.ld - b->value.ld) < 0.000000001;
         case P_Int:
             return *(a->value.p_i) == *(b->value.p_i);
         case P_Char:
@@ -237,10 +226,6 @@ int T_equals(typeT a, typeT b) {
         case P_Void:
             return 0;
         default:
-            printf("Unkown error on T_greather_than\n");
             assert(0);
-            exit(-1);
-            break;
     };
-    exit(-1);
 }
