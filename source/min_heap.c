@@ -30,7 +30,9 @@ void heap_add(heap h, typeT value){
 	heap_bubble_up(h);
 }
 
-void heap_del();
+void heap_remove(heap h){
+	
+}
 
 void heap_change_val();
 

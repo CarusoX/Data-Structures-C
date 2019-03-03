@@ -18,7 +18,7 @@ struct Heap {
 
 	void (*add)(heap, typeT);
 
-	void (*del)();
+	void (*remove)(heap);
 
 	int (*parent)(int);
 
