@@ -18,12 +18,11 @@ typedef union Data {
 	unsigned long long int ulli;    // 11
 	float f;                        // 12
 	double d;                       // 13
-	long double ld;                 // 14
     //pair p;
     //stack s;
-	int* p_i;                       // 15
-	char* p_c;                      // 16
-	void* p_v;                      // 17
+	int* p_i;                       // 14
+	char* p_c;                      // 15
+	void* p_v;                      // 16
 } data;
 
 // Data type //
@@ -42,12 +41,11 @@ enum types {
     ULLInt,                         // 11
     Float,                          // 12
     Double,                         // 13
-    LDouble,                        // 14
     //Pair,
     //Stack,
-    P_Int,                          // 15
-    P_Char,                         // 16
-    P_Void,                         // 17
+    P_Int,                          // 14
+    P_Char,                         // 15
+    P_Void,                         // 16
 };
 
 typedef struct T* typeT;

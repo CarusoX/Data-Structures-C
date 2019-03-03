@@ -64,9 +64,6 @@ void T_set_value(typeT t, void* value) {
         case Double:
             t->value.d = *(double*)value;
             break;
-        case LDouble:
-            t->value.ld = *(long double*)value;
-            break;
         case P_Int:
             t->value.p_i = (int*)value;
             break;
@@ -122,9 +119,7 @@ int T_less_than(typeT a, typeT b) {
         case Float:
             return a->value.f + 0.00001 < b->value.f;
         case Double:
-            return a->value.f + 0.0000001 < b->value.f;
-        case LDouble:
-            return a->value.f + 0.000000001 < b->value.f;
+            return a->value.d + 0.0000001 < b->value.d;
         case P_Int:
             return *(a->value.p_i) > *(b->value.p_i);
         case P_Char:
@@ -169,9 +164,7 @@ int T_greater_than(typeT a, typeT b) {
         case Float:
             return a->value.f > b->value.f + 0.00001;
         case Double:
-            return a->value.f > b->value.f + 0.0000001;
-        case LDouble:
-            return a->value.f > b->value.f + 0.000000001;
+            return a->value.d > b->value.d + 0.0000001;
         case P_Int:
             return *(a->value.p_i) > *(b->value.p_i);
         case P_Char:
@@ -217,8 +210,6 @@ int T_equals(typeT a, typeT b) {
             return abs(a->value.f - b->value.f) < 0.00001;
         case Double:
             return abs(a->value.d - b->value.d) < 0.0000001;
-        case LDouble:
-            return abs(a->value.ld - b->value.ld) < 0.000000001;
         case P_Int:
             return *(a->value.p_i) == *(b->value.p_i);
         case P_Char:

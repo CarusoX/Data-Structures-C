@@ -46,3 +46,5 @@ void pair_set_second(pair p, void* value);
 data pair_get_second(pair p);
 
 int pair_get_second_type(pair p);
+
+void pair_destroy (pair p);

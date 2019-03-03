@@ -73,6 +73,6 @@ int pair_get_second_type(pair p){
 }
 
 // Frees the memory of the pair //
-void destroy_pair (pair p){
+void pair_destroy (pair p){
 	free(p);
 }
