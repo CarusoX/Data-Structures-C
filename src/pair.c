@@ -29,7 +29,6 @@ void pair_set(pair p, void* v1, void* v2){
 // Sets the first element of a pair //
 void pair_set_first(pair p, void* value){
 	assert(p != NULL);
-	p -> first = T_init(T_get_type(p->first), value);
 	T_set_value(p->first, value);
 }
 
@@ -48,7 +47,6 @@ int pair_get_first_type(pair p){
 // Sets the second element of a pair //
 void pair_set_second(pair p, void* value){
 	assert(p != NULL);
-	p -> second = T_init(T_get_type(p->second), value);
 	T_set_value(p->second, value);
 }
 

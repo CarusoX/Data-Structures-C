@@ -31,7 +31,7 @@ typedef struct T {
     int (*equals)(typeT, typeT);
 } T;
 
-typeT T_init();
+typeT T_init(int, void*);
 void T_set_type(typeT, int);
 void T_set_value(typeT, void*);
 int T_get_type(typeT);

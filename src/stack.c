@@ -24,8 +24,7 @@ stack stack_init(int type){
 void stack_push(stack s, void* elem){
 	assert(s != NULL);
 	node n = (node)malloc(sizeof(struct Node));
-	typeT t = T_init();
-	T_set_value(t, elem);
+	typeT t = T_init(s->type, elem);
 	n -> t_node = t;
 	n -> next = NULL;
 	(s -> sz)++;

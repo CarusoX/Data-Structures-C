@@ -12,22 +12,26 @@ int main() {
 	pair p;
     
 	// Testing creation of a pair //
-	p = pair_init(Int, Int);
+	p = pair_init(&x, &y, Int, Int);
   
 	// Testing set functions for first and second element //
     pair_set_first(p, &x);
 	pair_set_second(p, &y);
 
 	// Testing get function to know if set is working //
-	get1 = (pair_get_first(p)).i;
-	get2 = (pair_get_second(p)).i;
+	get1 = pair_get_first(p).i;
+	get2 = pair_get_second(p).i;
 
 	// If the values are equal, the set and get functions are working great //
 	printf("%d = %d \n", x, get1);
 	printf("%d = %d \n", y, get2);
 
+	pair_destroy(p);
+
+	p = NULL;
+
 	// Init p again to test it with chars //
-	p = pair_init(Char, Char);
+	p = pair_init(&c, &s, Char, Char);
 
 	// Testing pair set to put the two values //
 	pair_set(p, &c, &s);
