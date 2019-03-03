@@ -48,5 +48,3 @@ void tree_balance(tree);
 void tree_replace(tree, tree);
 // Chech if tree is a RBTree
 int tree_checker(tree, int*, int);
-// Print the tree
-void print(tree, int);

@@ -9,13 +9,12 @@ int main() {
     srand(time(NULL));
     fore(i, 0, 100000) {
         int r = rand() % 2;
-        int l = rand() % 100;
+        int l = rand();
         if(r) {
-            insert(s, l);
+            insert(s, i);
         } else {
             erase(s, l);
         }
-        set_checker(s);
     }
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;

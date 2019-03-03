@@ -66,14 +66,20 @@ static void tree_rotateR(tree Q) {
 
 tree tree_create(typeT t) {
     tree g = (tree)malloc(sizeof(struct RBTree));
+    
     g->node = t;
+    
     g->left = g->right = g->parent = NULL;
+
+    // New nodes are RED
     g->color = R;
+
     return g;
 }
 
 tree tree_find(tree current, typeT t) {
     if(!current) return NULL;
+
     if(current->left && less_than(t, current->node)) {
         return tree_find(current->left, t);
     } else if(current->right && greater_than(t, current->node)) {
@@ -85,8 +91,11 @@ tree tree_find(tree current, typeT t) {
 
 void tree_clear(tree cur) {
     if(!cur) return;
+    // Clear left
     tree_clear(cur->left);
+    // Clear right
     tree_clear(cur->right);
+    // Free node
     free(cur->node);
     free(cur);
 }
@@ -98,79 +107,6 @@ tree tree_insert(tree p, tree c) {
         p->right = c;
     }
     c->parent = p;
-}
-
-void tree_erase_case1(tree n) {
-    if(n->parent) {
-        tree_erase_case2(n);
-    }
-}
-
-void tree_erase_case2(tree n) {
-    tree s = tree_sibling(n);
-
-    if(s != NULL && s->color == R) {
-        n->parent->color = R;
-        s->color = B;
-        if(n == n->parent->left) tree_rotateL(n->parent);
-        else tree_rotateR(n->parent);
-    }
-    tree_erase_case3(n);
-}
-
-void tree_erase_case3(tree n) {
-    tree s = tree_sibling(n);
-
-    if((n->parent->color == B) && (!s || s->color == B) && (!s || !s->left || s->left->color == B) && (!s || !s->right || s->right->color == B)) {
-        if(s) s->color = R;
-        tree_erase_case1(n->parent);
-    } else {
-        tree_erase_case4(n);
-    }
-}
-
-void tree_erase_case4(tree n) {
-    tree s = tree_sibling(n);
-
-    if((n->parent->color == R) && (!s || s->color == B) && (!s || !s->left || s->left->color == B) && (!s || !s->right || s->right->color == B)) {
-        if(s) s->color = R;
-        n->parent->color = B;
-    } else {
-        tree_erase_case5(n);
-    }
-}
-
-void tree_erase_case5(tree n) {
-    tree s = tree_sibling(n);
-
-    if(s && s->color == B) {
-        if ((n == n->parent->left) && (!s->right || s->right->color == B) && (s->left && s->left->color == R)) {
-            if(s) s->color = R;
-            if(s && s->left) s->left->color = B;
-            tree_rotateR(s);
-        } else if ((n == n->parent->right) && (!s->left || s->left->color == B) && (s->right && s->right->color == R)) {
-            if(s) s->color = R;
-            if(s && s->right) s->right->color = B;
-            tree_rotateL(s);
-        }
-    }
-    tree_erase_case6(n);
-}
-
-void tree_erase_case6(tree n)
-{
-    tree s = tree_sibling(n);
-
-    if(s) s->color = n->parent->color;
-    n->parent->color = B;
-
-    if (n == n->parent->left) {
-        if(s && s->right) s->right->color = B;
-        tree_rotateL(n->parent);
-    } else {
-        if(s && s->left) s->left->color = B;
-        tree_rotateR(n->parent);
-    }
 }
 
 void tree_balance(tree t) {
@@ -225,30 +161,105 @@ void tree_balance(tree t) {
     return;
 }
 
-void tree_replace(tree t, tree s) {
-    s->parent = t->parent;
-    if(t->parent) {
-        if(t == t->parent->left) t->parent->left = s;
-        else t->parent->right = s;
+void tree_erase_case1(tree n) {
+    if(n->parent)
+        tree_erase_case2(n);
+}
+
+void tree_erase_case2(tree n) {
+    tree s = tree_sibling(n);
+
+    if(s != NULL && s->color == R) {
+        n->parent->color = R;
+        s->color = B;
+        if(n == n->parent->left)
+            tree_rotateL(n->parent);
+        else
+            tree_rotateR(n->parent);
+    }
+    tree_erase_case3(n);
+}
+
+void tree_erase_case3(tree n) {
+    tree s = tree_sibling(n);
+
+    if((n->parent->color == B)
+    && (!s || s->color == B)
+    && (!s || !s->left || s->left->color == B)
+    && (!s || !s->right || s->right->color == B)) {
+        if(s)
+            s->color = R;
+        tree_erase_case1(n->parent);
+    } else {
+        tree_erase_case4(n);
     }
 }
 
-void print(tree t, int space) {
-    // Base case  
-    if (t == NULL)  
-        return;  
-  
-    // Increase distance between levels  
-    space += 10;  
-  
-    // Process right child first  
-    print(t->right, space);
-    printf("\n"); 
-    for (int i = 10; i < space; i++) printf(" ");
-    printf("%d %d\n", t->node->value.i, t->color);
-  
-    // Process left child  
-    print(t->left, space);
+void tree_erase_case4(tree n) {
+    tree s = tree_sibling(n);
+
+    if((n->parent->color == R)
+    && (!s || s->color == B)
+    && (!s || !s->left || s->left->color == B)
+    && (!s || !s->right || s->right->color == B)) {
+        if(s)
+            s->color = R;
+        n->parent->color = B;
+    } else {
+        tree_erase_case5(n);
+    }
+}
+
+void tree_erase_case5(tree n) {
+    tree s = tree_sibling(n);
+
+    if(s && s->color == B) {
+        if ((n == n->parent->left)
+        && (!s->right || s->right->color == B)
+        && (s->left && s->left->color == R)) {
+            if(s)
+                s->color = R;
+            if(s && s->left)
+                s->left->color = B;
+            tree_rotateR(s);
+        } else if ((n == n->parent->right)
+        && (!s->left || s->left->color == B)
+        && (s->right && s->right->color == R)) {
+            if(s)
+                s->color = R;
+            if(s && s->right)
+                s->right->color = B;
+            tree_rotateL(s);
+        }
+    }
+    tree_erase_case6(n);
+}
+
+void tree_erase_case6(tree n)
+{
+    tree s = tree_sibling(n);
+
+    if(s) s->color = n->parent->color;
+    n->parent->color = B;
+
+    if (n == n->parent->left) {
+        if(s && s->right)
+            s->right->color = B;
+        tree_rotateL(n->parent);
+    } else {
+        if(s && s->left)
+            s->left->color = B;
+        tree_rotateR(n->parent);
+    }
+}
+
+void tree_replace(tree t, tree s) {
+    s->parent = t->parent;
+    if(t->parent)
+        if(t == t->parent->left)
+            t->parent->left = s;
+        else
+            t->parent->right = s;
 }
 
 int tree_checker(tree t, int* c, int d) {

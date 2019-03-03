@@ -24,7 +24,7 @@ struct BST {
     void (*clear)(set);
     /* Get size */
     size_t (*size)(set);
-};
+} BST;
 
 set set_init(int);
 void set_insert(set, void*);
