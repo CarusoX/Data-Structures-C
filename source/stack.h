@@ -43,13 +43,13 @@ struct Stack {
 
 };
 
-stack stack_init();
-
-data stack_top(stack s);
+stack stack_init(int type);
 
 void stack_push(stack s, void* elem);
 
 void stack_pop(stack s);
+
+data stack_top(stack s);
 
 int stack_top_type(stack s);
 

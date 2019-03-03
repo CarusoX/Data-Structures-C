@@ -1,12 +1,12 @@
 #include "pair.h"
 
 // Init the pair with the types, but not the data //
-pair pair_init(int t1, int t2){
+pair pair_init(void* v1, void* v2, int t1, int t2){
 
 	pair p = (pair)malloc(sizeof(struct Pair));
-	
-	T_set_type(p->first, t1);
-	T_set_type(p->second, t2);
+
+	p->first = T_init(t1, v1);
+	p->second = T_init(t2, v2);
 	
 	// Allocate functions
 	p->set_first = pair_set_first;
@@ -17,14 +17,6 @@ pair pair_init(int t1, int t2){
 	p->get_second_type = pair_get_second_type;
 
 	return p;
-}
-
-// Create and set the two elems in the pair //
-pair pair_create(void* v1, void* v2, int t1, int t2){
-	pair p = (pair)malloc(sizeof(struct Pair));
-	T_set_type(p->first, t1);
-	T_set_type(p->second, t2);
-	pair_set(p, v1, v2);
 }
 
 // Set the two elements in a given pair //
@@ -74,5 +66,7 @@ int pair_get_second_type(pair p){
 
 // Frees the memory of the pair //
 void pair_destroy (pair p){
+	free(p->first);
+	free(p->second);
 	free(p);
 }

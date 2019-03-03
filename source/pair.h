@@ -29,9 +29,7 @@ struct Pair {
 
 };
 
-pair pair_init();
-
-pair pair_create(void* v1, void* v2, int t1, int t2);
+pair pair_init(void* v1, void* v2, int t1, int t2);
 
 void pair_set(pair p, void* v1, void* v2);
 

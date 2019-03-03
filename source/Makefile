@@ -10,6 +10,9 @@ pair_test: T.o pair.o pair_test.o
 set_test: T.o bst.o rbtree.o set_test.o
 	$(CC) $(CFLAGS) -o $@ $^
 
+stack_test: T.o stack.o stack_test.o
+	$(CC) $(CFLAGS) -o $@ $^
+
 vector_test: T.o vector.o vector_test.o
 	$(CC) $(CFLAGS) -o $@ $^
 
@@ -18,6 +21,9 @@ run_pair_test: pair_test
 
 run_set_test: set_test
 	./set_test
+
+run_stack_test: stack_test
+	./stack_test
 
 run_vector_test: vector_test
 	./vector_test
@@ -32,4 +38,4 @@ run_set_test_valgrind: set_test
 	valgrind --show-reachable=yes --leak-check=full ./set_test
 
 clean:
-	rm -f set_test pair_test vector_test *.o
+	rm -f set_test stack_test pair_test vector_test *.o
