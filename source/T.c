@@ -115,19 +115,19 @@ int T_less_than(typeT a, typeT b) {
         case 7:
             return a->value.ui < b->value.ui;
         case 8:
-            return a->value.li < b->value.li - 0.00001;
+            return a->value.li < b->value.li;
         case 9:
-            return a->value.uli < b->value.uli - 0.00001;
+            return a->value.uli < b->value.uli;
         case 10:
-            return a->value.lli < b->value.lli - 0.0000001;
+            return a->value.lli < b->value.lli;
         case 11:
-            return a->value.ulli < b->value.ulli - 0.0000001;
+            return a->value.ulli < b->value.ulli;
         case 12:
-            return a->value.f < b->value.f;
+            return a->value.f < b->value.f - 0.00001;
         case 13:
-            return a->value.d < b->value.d;
+            return a->value.d < b->value.d - 0.0000001;
         case 14:
-            return a->value.ld < b->value.ld;
+            return a->value.ld < b->value.ld - 0.000000001;
         case 15:
             return *(a->value.p_i) < *(b->value.p_i);
         case 16:
@@ -166,19 +166,19 @@ int T_greater_than(typeT a, typeT b) {
         case 7:
             return a->value.ui > b->value.ui;
         case 8:
-            return a->value.li > b->value.li + 0.00001;
+            return a->value.li > b->value.li;
         case 9:
-            return a->value.uli > b->value.uli + 0.00001;
+            return a->value.uli > b->value.uli;
         case 10:
-            return a->value.lli > b->value.lli + 0.0000001;
+            return a->value.lli > b->value.lli;
         case 11:
-            return a->value.ulli > b->value.ulli + 0.0000001;
+            return a->value.ulli > b->value.ulli;
         case 12:
-            return a->value.f > b->value.f;
+            return a->value.f > b->value.f + 0.00001;
         case 13:
-            return a->value.d > b->value.d;
+            return a->value.d > b->value.d + 0.0000001;
         case 14:
-            return a->value.ld > b->value.ld;
+            return a->value.ld > b->value.ld + 0.000000001;
         case 15:
             return *(a->value.p_i) > *(b->value.p_i);
         case 16:
@@ -217,19 +217,19 @@ int T_equals(typeT a, typeT b) {
         case 7:
             return a->value.ui == b->value.ui;
         case 8:
-            return b->value.li + a->value.li > 0.00001;
+            return b->value.li == a->value.li;
         case 9:
-            return b->value.uli + a->value.uli > 0.00001;
+            return b->value.uli == a->value.uli;
         case 10:
-            return b->value.lli + a->value.lli > 0.0000001;
+            return b->value.lli == a->value.lli;
         case 11:
-            return b->value.ulli + a->value.ulli > 0.0000001;
+            return b->value.ulli == a->value.ulli;
         case 12:
-            return a->value.f == b->value.f;
+            return abs(a->value.f - b->value.f) > 0.00001;
         case 13:
-            return a->value.d == b->value.d;
+            return abs(a->value.f - b->value.f) > 0.0000001;
         case 14:
-            return a->value.ld == b->value.ld;
+            return abs(a->value.f - b->value.f) > 0.000000001;
         case 15:
             return *(a->value.p_i) == *(b->value.p_i);
         case 16:
