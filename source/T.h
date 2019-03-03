@@ -3,62 +3,58 @@
 #include "stdlib.h"
 #include "stdio.h"
 
-// typedef union Data { 0 undefined
-//     int i;           1
-//     long long l;     2
-//     char c;          3
-// } data;
-
 //Possible values of the pair
 typedef union Data {
-	unsigned char uc;
-	signed char sc;
-	char c;
-	short int si;
-	unsigned short int usi;
-	int i;
-	unsigned int ui;
-	long int li;
-	unsigned long int uli;
-	long long int lli;
-	unsigned long long int ulli;
-	float f;
-	double d;
-	long double ld;
-    pair p;
-    stack s;
-	int* p_i;
-	char* p_c;
-	void* p_v;
+	unsigned char uc;               //  1
+	signed char sc;                 //  2
+	char c;                         //  3
+	short int si;                   //  4
+	unsigned short int usi;         //  5
+	int i;                          //  6
+	unsigned int ui;                //  7
+	long int li;                    //  8
+	unsigned long int uli;          //  9
+	long long int lli;              // 10
+	unsigned long long int ulli;    // 11
+	float f;                        // 12
+	double d;                       // 13
+	long double ld;                 // 14
+    //pair p;
+    //stack s;
+	int* p_i;                       // 15
+	char* p_c;                      // 16
+	void* p_v;                      // 17
 } data;
 
+// Data type //
+enum type {
+    Undefined,
+    UChar,
+    SChar,
+    Char,
+    SInt,
+    USInt,
+    Int,
+    UInt,
+    LInt,
+    ULInt,
+    LLInt,
+    ULLInt,
+    Float,
+    Double,
+    LDouble,
+    //Pair,
+    //Stack,
+    P_Int,
+    P_Char,
+    P_Void,
+} iType;
 
 typedef struct T* typeT;
 
 struct T {
-    // Data type //
-    enum types {
-        Undefined,
-        UChar,
-        SChar,
-        Char,
-        SInt,
-        USInt,
-        Int,
-        UInt,
-        LInt,
-        ULInt,
-        LLInt,
-        ULLInt,
-        Float,
-        Double,
-        LDouble,
-        Pair,
-        Stack,
-        P_Int,
-        P_Char,
-        P_Void,
-    } iType;
+    
+    enum types iType;
     
     // Union of possible values //
     data value;

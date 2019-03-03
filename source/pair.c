@@ -1,45 +1,71 @@
 #include "pair.h"
 
-pair pair_init(){
+// Init the pair with the types, but not the data //
+pair pair_init(int t1, int t2){
+
 	pair p = (pair)malloc(sizeof(struct Pair));
-	p->first = NULL;
-	p->second = NULL;
+	
+	T_set_type(p->first, t1);
+	T_set_type(p->second, t2);
+	
+	// Allocate functions
+	p->set_first = pair_set_first;
+	p->get_first = pair_get_first;
+	p->get_first_type = pair_get_first_type;
+	p->set_second = pair_set_second;
+	p->get_second = pair_get_second;
+	p->get_second_type = pair_get_second_type;
+
 	return p;
 }
 
-void pair_set(pair p, void* v1, void* v2, int t1, int t2){
-	pair_set_first(p, v1, t1);
-	pair_set_second(p, v2, t2);
+// Create and set the two elems in the pair //
+pair pair_create(void* v1, void* v2, int t1, int t2){
+	pair p = (pair)malloc(sizeof(struct Pair));
+	T_set_type(p->first, t1);
+	T_set_type(p->second, t2);
+	pair_set(p, v1, v2);
 }
 
-void pair_set_first(pair p, void* value, int type){
-	p -> first = T_init(type, value);
-	T_set_type(p->first, type);
+// Set the two elements in a given pair //
+void pair_set(pair p, void* v1, void* v2){
+	pair_set_first(p, v1);
+	pair_set_second(p, v2);
+}
+
+// Sets the first element of a pair //
+void pair_set_first(pair p, void* value){
+	p -> first = T_init(T_get_type(p->first), value);
 	T_set_value(p->first, value);
 }
 
+// Returns the first element in the pair //
 data pair_get_first(pair p){
 	return T_get_value(p->first);
 }
 
+// Returns the type of the first element in the pair //
 int pair_get_first_type(pair p){
 	return T_get_type(p->first);
 }
 
-void pair_set_second(pair p, void* value, int type){
-	p -> second = T_init(type, value);
-	T_set_type(p->second, type);
+// Sets the second element of a pair //
+void pair_set_second(pair p, void* value){
+	p -> second = T_init(T_get_type(p->second), value);
 	T_set_value(p->second, value);
 }
 
+// Returns the second element in the pair //
 data pair_get_second(pair p){
 	return T_get_value(p->second);
 }
 
+// Returns the type of the second element in the pair //
 int pair_get_second_type(pair p){
 	return T_get_type(p->first);
 }
 
+// Frees the memory of the pair //
 void destroy_pair (pair p){
 	free(p);
 }

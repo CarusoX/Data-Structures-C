@@ -21,23 +21,25 @@ struct Stack {
 	node the_stack;
     /* Number of elements stored */
     size_t sz;
+	/* Type of the elements */
+	int type;
 
 	// Function pointers //
 
 	/* Returns top element in stack */
-	data (*stack_top)(stack s);
+	data (*top)(stack s);
 	/* Push an element in the stack */
-	void (*stack_push)(stack s, void* elem);
+	void (*push)(stack s, void* elem);
 	/* Pop the last element in the stack */
-	void (*stack_pop)(stack s);
+	void (*pop)(stack s);
 	/* Returns the type of the top element in the stack */
-	int (*stack_top_type)(stack s);
+	int (*top_type)(stack s);
 	/* Returns true if the stack is empty */
-	bool (*stack_empty)(stack s);
+	bool (*empty)(stack s);
 	/* Returns stack size */
-	size_t (*stack_size)(stack s);
+	size_t (*size)(stack s);
 	/* Frees the memory used by the stack */
-	void (*stack_clear)(stack s);
+	void (*clear)(stack s);
 
 };
 
@@ -45,7 +47,7 @@ stack stack_init();
 
 data stack_top(stack s);
 
-void stack_push(stack s, void* elem, int type);
+void stack_push(stack s, void* elem);
 
 void stack_pop(stack s);
 

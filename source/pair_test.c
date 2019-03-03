@@ -11,22 +11,22 @@ int main() {
     pair_set_first(p, x, 6);
 	pair_set_second(p, y, 6);
 
-	int get1, get2;
+	int* get1, get2;
 
-	get1 = pair_get_first(p);
-	get2 = pair_get_second(p);
+	get1 = *(int*)pair_get_first(p);
+	get2 = *(int*)pair_get_second(p);
 
-	cout << x << " = " << get1 << endl;
-	cout << y << " = " << get2 << endl;
+	printf("%d = %d \n", x, get1);
+	printf("%d = %d \n", y, get2);
 
 	char c = 'A', s = 'B';
 	pair_set(p, c, s, 3, 3);
 
-	get1 = pair_get_first(p);
-	get2 = pair_get_second(p);
+	get1 = *(int*)pair_get_first(p);
+	get2 = *(int*)pair_get_second(p);
 
-	cout << c << " = " << get1 << endl;
-	cout << s << " = " << get2 << endl;
+	printf("%d = %d \n", c, get1);
+	printf("%d = %d \n", s, get2);
 
 	destroy_pair(p);
   

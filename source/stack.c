@@ -1,17 +1,30 @@
 #include "stack.h"
 #define fore(i, s, e) for(int i = s; i < e; i++)
 
-stack stack_init(){
+stack stack_init(int type){
+
 	stack s = (stack)malloc(sizeof(struct Stack));
-	s -> the_S= NULL;
-	s -> sz = 0;
+	
+	s->the_stack = NULL;
+	s->type = type;
+	s->sz = 0;
+
+	// Allocate functions
+	s->top = stack_top;
+	s->push = stack_push;
+	s->pop = stack_pop;
+	s->top_type = stack_top_type;
+	s->empty = stack_empty;
+	s->size = stack_size;
+	s->clear = stack_clear;
+
+	return s;
 }
 
-void stack_push(stack s, void* elem, int type){
+void stack_push(stack s, void* elem){
 	assert(s != NULL);
 	node n = (node)malloc(sizeof(struct Node));
 	typeT t = T_init();
-	T_set_type(t, type);
 	T_set_value(t, elem);
 	n -> t_node = t;
 	n -> next = NULL;
