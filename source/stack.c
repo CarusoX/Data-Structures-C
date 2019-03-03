@@ -56,6 +56,7 @@ size_t stack_size(stack s){
 }
 
 bool stack_empty(stack s){
+	assert(s != NULL);
 	return (s->sz == 0);
 }
 

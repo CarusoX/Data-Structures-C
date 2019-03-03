@@ -93,13 +93,154 @@ data T_get_value(typeT t) {
 }
 
 int T_less_than(typeT a, typeT b) {
-    return a->value.i < b->value.i;
+    int aType = T_get_type(a);
+    int bType = T_get_type(b);
+
+    assert(aType != 0);
+    assert(aType == bType);
+
+    switch(aType) {
+        case 1:
+            return a->value.uc < b->value.uc;
+        case 2:
+            return a->value.sc < b->value.sc;
+        case 3:
+            return a->value.c < b->value.c;
+        case 4:
+            return a->value.si < b->value.si;
+        case 5:
+            return a->value.usi < b->value.usi;
+        case 6:
+            return a->value.i < b->value.i;
+        case 7:
+            return a->value.ui < b->value.ui;
+        case 8:
+            return a->value.li < b->value.li - 0.00001;
+        case 9:
+            return a->value.uli < b->value.uli - 0.00001;
+        case 10:
+            return a->value.lli < b->value.lli - 0.0000001;
+        case 11:
+            return a->value.ulli < b->value.ulli - 0.0000001;
+        case 12:
+            return a->value.f < b->value.f;
+        case 13:
+            return a->value.d < b->value.d;
+        case 14:
+            return a->value.ld < b->value.ld;
+        case 15:
+            return *(a->value.p_i) < *(b->value.p_i);
+        case 16:
+            return *(a->value.p_c) < *(b->value.p_c);
+        case 17:
+            return 0;
+        default:
+            printf("Unkown error on T_greather_than\n");
+            assert(0);
+            exit(-1);
+            break;
+    };
+    exit(-1);
 }
 
 int T_greater_than(typeT a, typeT b) {
-    return a->value.i > b->value.i;
+    int aType = T_get_type(a);
+    int bType = T_get_type(b);
+
+    assert(aType != 0);
+    assert(aType == bType);
+
+    switch(aType) {
+        case 1:
+            return a->value.uc > b->value.uc;
+        case 2:
+            return a->value.sc > b->value.sc;
+        case 3:
+            return a->value.c > b->value.c;
+        case 4:
+            return a->value.si > b->value.si;
+        case 5:
+            return a->value.usi > b->value.usi;
+        case 6:
+            return a->value.i > b->value.i;
+        case 7:
+            return a->value.ui > b->value.ui;
+        case 8:
+            return a->value.li > b->value.li + 0.00001;
+        case 9:
+            return a->value.uli > b->value.uli + 0.00001;
+        case 10:
+            return a->value.lli > b->value.lli + 0.0000001;
+        case 11:
+            return a->value.ulli > b->value.ulli + 0.0000001;
+        case 12:
+            return a->value.f > b->value.f;
+        case 13:
+            return a->value.d > b->value.d;
+        case 14:
+            return a->value.ld > b->value.ld;
+        case 15:
+            return *(a->value.p_i) > *(b->value.p_i);
+        case 16:
+            return *(a->value.p_c) > *(b->value.p_c);
+        case 17:
+            return 0;
+        default:
+            printf("Unkown error on T_greather_than\n");
+            assert(0);
+            exit(-1);
+            break;
+    };
+    exit(-1);
 }
 
 int T_equals(typeT a, typeT b) {
-    return a->value.i == b->value.i;
+    int aType = T_get_type(a);
+    int bType = T_get_type(b);
+
+    assert(aType != 0);
+    assert(aType == bType);
+
+    switch(aType) {
+        case 1:
+            return a->value.uc == b->value.uc;
+        case 2:
+            return a->value.sc == b->value.sc;
+        case 3:
+            return a->value.c == b->value.c;
+        case 4:
+            return a->value.si == b->value.si;
+        case 5:
+            return a->value.usi == b->value.usi;
+        case 6:
+            return a->value.i == b->value.i;
+        case 7:
+            return a->value.ui == b->value.ui;
+        case 8:
+            return b->value.li + a->value.li > 0.00001;
+        case 9:
+            return b->value.uli + a->value.uli > 0.00001;
+        case 10:
+            return b->value.lli + a->value.lli > 0.0000001;
+        case 11:
+            return b->value.ulli + a->value.ulli > 0.0000001;
+        case 12:
+            return a->value.f == b->value.f;
+        case 13:
+            return a->value.d == b->value.d;
+        case 14:
+            return a->value.ld == b->value.ld;
+        case 15:
+            return *(a->value.p_i) == *(b->value.p_i);
+        case 16:
+            return *(a->value.p_c) == *(b->value.p_c);
+        case 17:
+            return 0;
+        default:
+            printf("Unkown error on T_greather_than\n");
+            assert(0);
+            exit(-1);
+            break;
+    };
+    exit(-1);
 }
