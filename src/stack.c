@@ -44,9 +44,9 @@ data stack_top(stack s){
 	return ((s -> first) -> elem) -> value;
 }
 
-int stack_top_type(stack s){
+int stack_type(stack s){
 	assert(s != NULL);
-	return T_get_type(s->first->elem);
+	return s->type;
 }
 
 size_t stack_size(stack s){
