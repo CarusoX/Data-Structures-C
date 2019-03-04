@@ -34,8 +34,8 @@ int main() {
 	printf("%d, ", top(s).i);
 
 	// If top and pop worked, here we test top_type and size //
-	printf("Type should be 3: %d", top_type(s));
-	printf("Size also should be 3: %d", size(s));
+	printf("Type should be 3: %d \n", top_type(s));
+	printf("Size also should be 3: %lu \n", size(s));
 
 	// Freeing all the data allocated //
 	stack_clear(s);

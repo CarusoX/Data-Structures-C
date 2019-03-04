@@ -19,7 +19,7 @@ int main() {
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("%lf segundos\n", time_spent);
-    printf("%d elements inside\n", size(s));
+    printf("%lu elements inside\n", size(s));
     clear(s);
     return 0;
 }

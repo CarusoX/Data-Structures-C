@@ -26,7 +26,8 @@ void stack_push(stack s, void* elem){
 	list n = (list)malloc(sizeof(struct StackList));
 	typeT t = T_init(s->type, elem);
 	n -> elem = t;
-	n -> next = NULL;
+	n -> next = s->first;
+	s->first = n;
 	(s -> sz)++;
 }
 
@@ -35,13 +36,13 @@ void stack_pop(stack s){
 	list n = s -> first;
 	s -> first = n -> next;
 	n -> next = NULL;
-	free(n);
+	destroy(n->elem);
 	(s -> sz)--;
 }
 
 data stack_top(stack s){
 	assert(s != NULL);
-	return T_get_value((s -> first) -> elem);
+	return ((s -> first) -> elem) -> value;
 }
 
 int stack_top_type(stack s){
@@ -60,7 +61,10 @@ bool stack_empty(stack s){
 }
 
 void stack_clear(stack s){
-	fore(i, 0, s->sz) stack_pop(s);
-	free(s->first);
-	free(s);
+  fore(i, 0, s->sz) stack_pop(s);
+}
+
+void stack_destroy(stack s){
+  stack_clear(s);
+  free(s); s = NULL;
 }

@@ -34,5 +34,7 @@ int main() {
 
 	clear(p);
   
+	printf("OK");
+
     return 0;
 }
