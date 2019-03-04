@@ -30,9 +30,9 @@ void pair_set_first(pair p, void* value){
 	T_set_value(p->first, value);
 }
 
-data pair_get_first(pair p){
+typeT pair_get_first(pair p){
 	assert(p != NULL);
-	return T_get_value(p->first);
+	return p->first;
 }
 
 int pair_get_first_type(pair p){
@@ -45,9 +45,9 @@ void pair_set_second(pair p, void* value){
 	T_set_value(p->second, value);
 }
 
-data pair_get_second(pair p){
+typeT pair_get_second(pair p){
 	assert(p != NULL);
-	return T_get_value(p->second);
+	return p->second;
 }
 
 int pair_get_second_type(pair p){

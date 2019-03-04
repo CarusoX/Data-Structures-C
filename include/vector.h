@@ -1,14 +1,16 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+typedef struct T* typeT;
+
 #include "assert.h"
 #include "defs.h"
 #include "stdlib.h"
 #include "T.h"
 
-typedef struct DYNAMIC_ARRAY* vector;
+typedef struct Vector* vector;
 
-typedef struct DYNAMIC_ARRAY {
+typedef struct Vector {
     // Data //
 
     /* Array of struct T */

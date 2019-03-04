@@ -1,3 +1,8 @@
+#ifndef RBTREE_H
+#define RBTREE_H
+
+typedef struct T* typeT;
+
 #include "assert.h"
 #include "defs.h"
 #include "stdlib.h"
@@ -48,3 +53,5 @@ void tree_balance(tree);
 void tree_replace(tree, tree);
 // Chech if tree is a RBTree
 int tree_checker(tree, int*, int);
+
+#endif

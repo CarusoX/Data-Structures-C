@@ -2,7 +2,6 @@
 #define PAIR_H
 
 typedef struct T* typeT;
-typedef union Data data;
 
 #include "assert.h"
 #include "defs.h"
@@ -25,9 +24,9 @@ struct Pair {
 	/* Set the second element of the pair */
 	void (*set_second)(pair, void*);
 	/* Get the first element of the pair */
-	data (*get_first)(pair);
+	typeT (*get_first)(pair);
 	/* Get the second element of the pair */
-	data (*get_second)(pair);
+	typeT (*get_second)(pair);
 	/* Get the type of the first element */
 	int (*get_first_type)(pair);
 	/* Get the type of the second element */
@@ -40,8 +39,8 @@ pair pair_init(void* v1, void* v2, int t1, int t2);
 void pair_set(pair p, void* v1, void* v2);
 void pair_set_first(pair p, void* value);
 void pair_set_second(pair p, void* value);
-data pair_get_first(pair p);
-data pair_get_second(pair p);
+typeT pair_get_first(pair p);
+typeT pair_get_second(pair p);
 int pair_get_first_type(pair p);
 int pair_get_second_type(pair p);
 void pair_clear(pair p);

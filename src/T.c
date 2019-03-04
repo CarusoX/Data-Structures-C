@@ -1,12 +1,11 @@
 #include "T.h"
 
 typeT T_init(int iType, void* value) {
-    typeT t = (typeT)malloc(sizeof(T));
+    typeT t = (typeT)malloc(sizeof(struct T));
 
     t->set_type = T_set_type;
     t->set_value = T_set_value;
     t->get_type = T_get_type;
-    t->get_value = T_get_value;
     t->less_than = T_less_than;
     t->greater_than = T_greater_than;
     t->equals = T_equals;
@@ -67,6 +66,12 @@ void T_set_value(typeT t, void* value) {
         case Pair:
             t->value.p = *(pair*)value;
             break;
+        case Vector:
+            t->value.v = *(vector*)value;
+            break;
+        case Set:
+            t->value.s = *(set*)value;
+            break;
         case P_Int:
             t->value.p_i = (int*)value;
             break;
@@ -83,10 +88,6 @@ void T_set_value(typeT t, void* value) {
 
 int T_get_type(typeT t) {
     return t->iType;
-}
-
-data T_get_value(typeT t) {
-    return t->value;
 }
 
 int T_less_than(typeT a, typeT b) {
@@ -129,10 +130,8 @@ int T_less_than(typeT a, typeT b) {
             return *(a->value.p_i) > *(b->value.p_i);
         case P_Char:
             return *(a->value.p_c) > *(b->value.p_c);
-        case P_Void:
-            return 0;
         default:
-            assert(0);
+            return 0;
     };
 }
 
@@ -174,10 +173,8 @@ int T_greater_than(typeT a, typeT b) {
             return *(a->value.p_i) > *(b->value.p_i);
         case P_Char:
             return *(a->value.p_c) > *(b->value.p_c);
-        case P_Void:
-            return 0;
         default:
-            assert(0);
+            return 0;
     };
 }
 
@@ -219,9 +216,6 @@ int T_equals(typeT a, typeT b) {
             return *(a->value.p_i) == *(b->value.p_i);
         case P_Char:
             return *(a->value.p_c) == *(b->value.p_c);
-        case P_Void:
-            return 0;
-        default:
-            assert(0);
+        return 0;
     };
 }

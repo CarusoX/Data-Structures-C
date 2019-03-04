@@ -6,7 +6,7 @@
 int main() {
 	char c = 'A', s = 'B';
 	int x = 5, y = 10;
-	int get1, get2;
+	typeT get1, get2;
 	pair p;
     
 	p = pair_init(&x, &y, Int, Int);
@@ -14,11 +14,11 @@ int main() {
     set_first(p, x);
 	set_second(p, y);
 
-	get1 = get_first(p).i;
-	get2 = get_second(p).i;
+	get1 = get_first(p);
+	get2 = get_second(p);
 
-	assert(get1 == x);
-	assert(get2 == y);
+	assert(get1->value.i == x);
+	assert(get2->value.i == y);
 
 	clear(p);
 
@@ -26,11 +26,11 @@ int main() {
 
 	pair_set(p, &c, &s);
 
-	get1 = get_first(p).c;
-	get2 = get_second(p).c;
+	get1 = get_first(p);
+	get2 = get_second(p);
 
-	assert(c == get1);
-	assert(s == get2);
+	assert(c == get1->value.c);
+	assert(s == get2->value.c);
 
 	clear(p);
   

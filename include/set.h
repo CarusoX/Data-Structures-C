@@ -1,8 +1,13 @@
+#ifndef SET_H
+#define SET_H
+
+typedef struct RBTree* tree;
+
 #include "rbtree.h"
 
-typedef struct BST* set;
+typedef struct Set* set;
 
-struct BST {
+struct Set {
     // Data //
 
     /* Pointer to an RBTree */
@@ -24,7 +29,7 @@ struct BST {
     void (*clear)(set);
     /* Get size */
     size_t (*size)(set);
-} BST;
+};
 
 set set_init(int);
 void set_insert(set, void*);
@@ -33,3 +38,5 @@ tree set_find(set, void*);
 void set_clear(set);
 void set_checker(set);
 size_t set_size(set);
+
+#endif

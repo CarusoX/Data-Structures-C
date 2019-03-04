@@ -6,18 +6,29 @@
 
 
 int main() {
-    vector v = vector_init(Pair, 1);
-    fore(i, 0, 100000) {
-        int u = i + 1, z = i + 2;
-        pair p = pair_init(&u, &z, Int, Int);
-        push_back(v, p);
+    vector v = vector_init(Vector, 1);
+    fore(i, 0, 10) {
+        vector j = vector_init(Pair, 1);
+        push_back(v, j);
     }
-    printf("%d", v->type);
-    fore(i, 0, 100000) {
-        struct T* t = at(v, i);
-        data d1 = get_first(t->value.p);
-        data d2 = get_second(t->value.p);
-        printf("%d %d\n", d1, d2);
+    fore(i, 0, 10) {
+        typeT t = at(v, i);
+        vector s = (t->value.v);
+        fore(j, 0, 10) {
+            pair p = pair_init(&i, &j, Int, Int);
+            push_back(s, p);
+        }
+    }
+    fore(i, 0, 10) {
+        typeT t = at(v, i);
+        vector s = (t->value.v);
+        fore(j, 0, 10) {
+            typeT u = at(s, j);
+            pair p = u->value.p;
+            typeT fst = get_first(p), snd = get_second(p);
+            printf("|%d-%d|", fst->value.i, snd->value.i);
+        }
+        printf("\n");
     }
     clear(v);
     return 0;

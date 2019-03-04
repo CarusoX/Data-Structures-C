@@ -2,8 +2,12 @@
 #define DATA_H
 
 typedef struct Pair* pair;
+typedef struct Vector* vector;
+typedef struct Set* set;
 
 #include "pair.h"
+#include "vector.h"
+#include "set.h"
 
 typedef union Data {
 	unsigned char uc;               //  1
@@ -20,9 +24,11 @@ typedef union Data {
 	float f;                        // 12
 	double d;                       // 13
     pair p;                         // 14
-	int* p_i;                       // 15
-	char* p_c;                      // 16
-	void* p_v;                      // 17
+    vector v;                       // 15
+    set s;                          // 16
+	int* p_i;                       // 17
+	char* p_c;                      // 18
+	void* p_v;                      // 19
 } data;
 
 typedef enum types {
@@ -41,9 +47,11 @@ typedef enum types {
     Float,                          // 12
     Double,                         // 13
     Pair,                           // 14
-    P_Int,                          // 15
-    P_Char,                         // 16
-    P_Void,                         // 17
+    Vector,                         // 15
+    Set,                            // 16
+    P_Int,                          // 17
+    P_Char,                         // 18
+    P_Void,                         // 19
 } type;
 
 #endif

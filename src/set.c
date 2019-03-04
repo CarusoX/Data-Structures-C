@@ -1,7 +1,7 @@
 #include "set.h"
 
 set set_init(int type) {
-    set s = (set)malloc(sizeof(struct BST));
+    set s = (set)malloc(sizeof(struct Set));
     s->bst = NULL;
     s->type = type;
     s->sz = 0;
