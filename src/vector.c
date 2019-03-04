@@ -3,12 +3,10 @@
 #define fore(i, s, e) for(int i = s; i < e; i++)
 
 vector vector_init(int type, size_t cap) {
-    assert(0 < cap);
-
-    vector v = (vector)malloc(sizeof(struct DYNAMIC_ARRAY));
+    vector v = (vector)malloc(sizeof(d_array));
 
     // Grab data
-    v->array = (struct T**)malloc(cap * sizeof(typeT));
+    v->array = (typeT*)malloc(cap * sizeof(typeT));
     v->type = type;
     v->sz = 0;
     v->capacity = cap;
@@ -25,7 +23,7 @@ vector vector_init(int type, size_t cap) {
 void vector_push_back(vector v, void* elem) {
     if(v->sz == v->capacity) {
         v->capacity *= 2;
-        v->array = (struct T**)realloc(v->array, v->capacity * sizeof(typeT));
+        v->array = (typeT*)realloc(v->array, v->capacity * sizeof(typeT));
     }
 
     // Create struct T

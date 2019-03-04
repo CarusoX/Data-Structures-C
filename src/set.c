@@ -1,4 +1,4 @@
-#include "bst.h"
+#include "set.h"
 
 set set_init(int type) {
     set s = (set)malloc(sizeof(struct BST));

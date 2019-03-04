@@ -1,9 +1,3 @@
-#include "assert.h"
-#include "defs.h"
-#include "stdlib.h"
-#include "stdio.h"
-
-//Possible values of the pair
 typedef union Data {
 	unsigned char uc;               //  1
 	signed char sc;                 //  2
@@ -18,15 +12,12 @@ typedef union Data {
 	unsigned long long int ulli;    // 11
 	float f;                        // 12
 	double d;                       // 13
-    //pair p;
-    //stack s;
 	int* p_i;                       // 14
 	char* p_c;                      // 15
 	void* p_v;                      // 16
 } data;
 
-// Data type //
-enum types {
+typedef enum types {
     Undefined,                      //  0
     UChar,                          //  1
     SChar,                          //  2
@@ -41,46 +32,7 @@ enum types {
     ULLInt,                         // 11
     Float,                          // 12
     Double,                         // 13
-    //Pair,
-    //Stack,
     P_Int,                          // 14
     P_Char,                         // 15
     P_Void,                         // 16
-};
-
-typedef struct T* typeT;
-
-struct T {
-    
-    enum types iType;
-    
-    // Union of possible values //
-    data value;
-
-    // Functions pointers //
-
-    /* Set type */
-    void (*set_type)(typeT, int);
-    /* Set value */
-    void (*set_value)(typeT, void*);
-    /* Get type */
-    int (*get_type)(typeT);
-    /* Get value */
-    data (*get_value)(typeT);
-    /* Less than */
-    int (*less_than)(typeT, typeT);
-    /* Greater than */
-    int (*greater_than)(typeT, typeT);
-    /* Equals */
-    int (*equals)(typeT, typeT);
-};
-
-typeT T_init();
-void T_set_type(typeT, int);
-void T_set_value(typeT, void*);
-int T_get_type(typeT);
-data T_get_value(typeT);
-int T_less_than(typeT, typeT);
-int T_greater_than(typeT, typeT);
-int T_equals(typeT, typeT);
-
+} type;

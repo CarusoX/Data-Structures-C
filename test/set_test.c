@@ -1,4 +1,4 @@
-#include "bst.h"
+#include "set.h"
 #include "defs.h"
 #include "stdlib.h"
 #include "stdio.h"
@@ -7,7 +7,7 @@ int main() {
     clock_t begin = clock();
     set s = set_init(Int);
     srand(time(NULL));
-    fore(i, 0, 1000000) {
+    fore(i, 0, 100000) {
         int r = rand() % 2;
         int l = rand();
         if(r) {
