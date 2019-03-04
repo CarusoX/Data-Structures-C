@@ -36,6 +36,7 @@ void stack_pop(stack s){
 	s -> first = n -> next;
 	n -> next = NULL;
 	destroy(n->elem);
+	free(n); n = NULL;
 	(s -> sz)--;
 }
 

@@ -7,20 +7,15 @@ int main() {
 	// Variables //
 	char a = 'A', b = 'B', c = 'C';
 	int x = 1, y = 2, z = 3;
-	stack s, d;
+	stack s;
 
 	// Init the two stacks //
 	s = stack_init(Int);
-	d = stack_init(Char);
 	
 	// Testing push function //
 	push(s, z);
 	push(s, y);
 	push(s, x);
-
-	push(d, a);
-	push(d, b);
-	push(d, c);
 
 	// The numbers are 1, 2, 3 //
 	printf("%d, %d, %d \n", x, y, z);
@@ -38,8 +33,7 @@ int main() {
 	printf("Size also should be 3: %lu \n", size(s));
 
 	// Freeing all the data allocated //
-	stack_clear(s);
-	stack_clear(d);
+	stack_destroy(s);
 
 	return 0;
 }
