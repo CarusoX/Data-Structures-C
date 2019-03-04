@@ -16,6 +16,8 @@ struct Heap {
 
 	void (*bubble_up)(heap);
 
+	void (*bubble_down)(heap h);
+
 	void (*add)(heap, typeT);
 
 	void (*remove)(heap);

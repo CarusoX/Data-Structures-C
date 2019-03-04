@@ -4,21 +4,21 @@
 #include "stdlib.h"
 #include "T.h"
 
-typedef struct Node* node;
+typedef struct StackList* list;
 typedef struct Stack* stack;
 
 // Struct containing the data of only one node //
-struct Node {
+struct StackList {
 	/* The data of the node */
-	typeT t_node;
+	typeT elem;
 	/* Pointer to next element */
-	node next;
+	list next;
 };
 
 // Struct with all the nodes //
 struct Stack {
 	/* First element of the stack */
-	node the_stack;
+	list first;
     /* Number of elements stored */
     size_t sz;
 	/* Type of the elements */

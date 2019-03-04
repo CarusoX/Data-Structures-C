@@ -8,8 +8,22 @@ heap heap_init(int type, size_t max_sz){
 	h->sz = 0;
 
 	vector v = vector_init(type, max_sz);
-
 	h->v = v;
+
+
+	// Allocate functions
+	h->bubble_up = heap_bubble_up;
+	h->bubble_down = heap_bubble_down;
+	h->add = heap_remove;
+	h->parent = heap_parent;
+	h->parent_data = heap_parent_data;
+	h->left = heap_left;
+	h->left_data = heap_left_data;
+	h->right = heap_right;
+	h->right_data = heap_right_data;
+	h->swap = heap_swap;
+	h->get_min = heap_get_min;
+	h->size = heap_size;
 
 	return h;
 }
@@ -95,8 +109,8 @@ typeT heap_right_data(heap h, int pos){
 
 void heap_swap(heap h, int pos1, int pos2){
 	typeT temp = vector_at(h->v, pos1);
-	vector_push_at(h->v, vector_at(h->v, pos2), pos1);
-	vector_push_at(h->v, temp, pos2);
+	vector_set_at(h->v, vector_at(h->v, pos2), pos1);
+	vector_set_at(h->v, temp, pos2);
 }
 
 typeT heap_get_min(heap h){
