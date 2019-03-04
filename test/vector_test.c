@@ -17,7 +17,7 @@ int main() {
         struct T* t = at(v, i);
         data d1 = get_first(t->value.p);
         data d2 = get_second(t->value.p);
-        printf("%d %d\n", d1, d2);
+        printf("%d %d\n", d1.i, d2.i);
     }
     clear(v);
     return 0;

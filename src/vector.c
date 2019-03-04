@@ -46,7 +46,7 @@ typeT vector_at(vector v, int p) {
     return v->array[p];
 }
 
-void vector_push_at(vector v, typeT val, int p){
+void vector_set_at(vector v, typeT val, int p){
     assert(0 <= p && p < (int)v->sz);
     v->array[p] = val;
 }
