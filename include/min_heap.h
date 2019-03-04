@@ -18,7 +18,7 @@ struct Heap {
 
 	void (*add)(heap, typeT);
 
-	void (*del)();
+	void (*remove)(heap);
 
 	int (*parent)(int);
 
@@ -43,9 +43,11 @@ heap heap_init(int type, size_t max_sz);
 
 void heap_bubble_up(heap h);
 
+void heap_bubble_down(heap h);
+
 void heap_add(heap h, typeT value);
 
-void heap_del();
+void heap_remove(heap h);
 
 int heap_parent(int pos);
 
