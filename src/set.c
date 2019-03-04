@@ -34,6 +34,7 @@ void set_insert(set s, void* elem) {
     } else if(equals(t, res->node)) {
         // Already on tree
         free(t);
+        t = NULL;
     } else {
         // Not on set
         tree node = tree_create(t);
@@ -62,10 +63,12 @@ void set_erase(set s, void* elem) {
     // If set is empty or elem does not belong to s return
     if(!r || !equals(r->node, t)) {
         free(t);
+        t = NULL;
         return;
     }
 
     free(t);
+    t = NULL;
 
     tree node = r;
 
@@ -116,7 +119,9 @@ void set_erase(set s, void* elem) {
     while(s->bst && s->bst->parent) s->bst = s->bst->parent;
 
     free(r->node);
+    r->node = NULL;
     free(r);
+    r->node = NULL;
     s->sz--;
 }
 
@@ -125,15 +130,18 @@ tree set_find(set s, void * elem) {
     tree res = tree_find(s->bst, t);
     if(equals(res->node, t)) {
         free(t);
+        t = NULL;
         return res;
     }
     free(t);
+    t = NULL;
     return NULL;
 }
 
 void set_clear(set s) {
     tree_clear(s->bst);
     free(s);
+    s = NULL;
 }
 
 void set_checker(set s) {

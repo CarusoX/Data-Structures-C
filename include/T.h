@@ -31,6 +31,8 @@ struct T {
     int (*greater_than)(typeT, typeT);
     /* Equals */
     int (*equals)(typeT, typeT);
+    /* Clear struct */
+    void (*clear)(typeT);
 };
 
 typeT T_init(int, void*);
@@ -40,5 +42,6 @@ int T_get_type(typeT);
 int T_less_than(typeT, typeT);
 int T_greater_than(typeT, typeT);
 int T_equals(typeT, typeT);
+void T_clear(typeT);
 
 #endif

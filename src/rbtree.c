@@ -97,7 +97,9 @@ void tree_clear(tree cur) {
     tree_clear(cur->right);
     // Free node
     free(cur->node);
+    cur->node = NULL;
     free(cur);
+    cur = NULL;
 }
 
 tree tree_insert(tree p, tree c) {

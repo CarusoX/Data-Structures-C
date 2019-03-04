@@ -39,6 +39,7 @@ void vector_pop_back(vector v) {
     assert(0 < v->sz);
     v->sz--;
     free(v->array[v->sz]);
+    v->array[v->sz] = NULL;
 }
 
 typeT vector_at(vector v, int p) {
@@ -52,9 +53,13 @@ void vector_set_at(vector v, typeT val, int p){
 }
 
 void vector_clear(vector v) {
-    fore(i, 0, v->sz) free(v->array[i]);
+    fore(i, 0, v->sz) {
+        clear(v->array[i]);
+    }
     free(v->array);
+    v->array = NULL;
     free(v);
+    v = NULL;
 }
 
 size_t vector_size(vector v) {

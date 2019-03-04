@@ -57,7 +57,9 @@ int pair_get_second_type(pair p){
 
 void pair_clear (pair p){
 	free(p->first);
+	p->first = NULL;
 	free(p->second);
+	p->second = NULL;
 	free(p);
 	p = NULL;
 }

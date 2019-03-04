@@ -9,6 +9,7 @@ typeT T_init(int iType, void* value) {
     t->less_than = T_less_than;
     t->greater_than = T_greater_than;
     t->equals = T_equals;
+    t->clear = T_clear;
 
     T_set_type(t, iType);
     T_set_value(t, value);
@@ -218,4 +219,20 @@ int T_equals(typeT a, typeT b) {
             return *(a->value.p_c) == *(b->value.p_c);
         return 0;
     };
+}
+
+void T_clear(typeT t) {
+    switch (t->iType) {
+        case Pair:
+            clear(t->value.p);
+            break;
+        case Vector:
+            clear(t->value.v);
+            break;
+        case Set:
+            clear(t->value.s);
+            break;
+    };
+    free(t);
+    t = NULL;
 }
