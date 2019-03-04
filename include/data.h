@@ -1,3 +1,10 @@
+#ifndef DATA_H
+#define DATA_H
+
+typedef struct Pair* pair;
+
+#include "pair.h"
+
 typedef union Data {
 	unsigned char uc;               //  1
 	signed char sc;                 //  2
@@ -12,9 +19,10 @@ typedef union Data {
 	unsigned long long int ulli;    // 11
 	float f;                        // 12
 	double d;                       // 13
-	int* p_i;                       // 14
-	char* p_c;                      // 15
-	void* p_v;                      // 16
+    pair p;                         // 14
+	int* p_i;                       // 15
+	char* p_c;                      // 16
+	void* p_v;                      // 17
 } data;
 
 typedef enum types {
@@ -32,7 +40,10 @@ typedef enum types {
     ULLInt,                         // 11
     Float,                          // 12
     Double,                         // 13
-    P_Int,                          // 14
-    P_Char,                         // 15
-    P_Void,                         // 16
+    Pair,                           // 14
+    P_Int,                          // 15
+    P_Char,                         // 16
+    P_Void,                         // 17
 } type;
+
+#endif

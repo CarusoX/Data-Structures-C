@@ -1,3 +1,9 @@
+#ifndef PAIR_H
+#define PAIR_H
+
+typedef struct T* typeT;
+typedef union Data data;
+
 #include "assert.h"
 #include "defs.h"
 #include "stdlib.h"
@@ -39,3 +45,5 @@ data pair_get_second(pair p);
 int pair_get_first_type(pair p);
 int pair_get_second_type(pair p);
 void pair_clear(pair p);
+
+#endif

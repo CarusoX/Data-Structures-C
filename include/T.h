@@ -1,7 +1,11 @@
+#ifndef T_H
+#define T_H
+
 #include "assert.h"
 #include "defs.h"
 #include "data.h"
 #include "stdlib.h"
+#include "stdio.h"
 
 typedef struct T* typeT;
 
@@ -40,3 +44,4 @@ int T_less_than(typeT, typeT);
 int T_greater_than(typeT, typeT);
 int T_equals(typeT, typeT);
 
+#endif

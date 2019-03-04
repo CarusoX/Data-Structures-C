@@ -64,6 +64,9 @@ void T_set_value(typeT t, void* value) {
         case Double:
             t->value.d = *(double*)value;
             break;
+        case Pair:
+            t->value.p = *(pair*)value;
+            break;
         case P_Int:
             t->value.p_i = (int*)value;
             break;
@@ -120,6 +123,8 @@ int T_less_than(typeT a, typeT b) {
             return a->value.f + 0.00001 < b->value.f;
         case Double:
             return a->value.d + 0.0000001 < b->value.d;
+        case Pair:
+            return T_less_than(a->value.p->first, b->value.p->first);
         case P_Int:
             return *(a->value.p_i) > *(b->value.p_i);
         case P_Char:

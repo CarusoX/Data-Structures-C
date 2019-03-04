@@ -15,7 +15,7 @@ LIB = $(patsubst %, $(IDIR)/%, $(_LIB))
 $(ODIR)/%.o: %.c $(LIB)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-bin/vector_test: $(ODIR)/vector_test.o $(ODIR)/T.o $(ODIR)/vector.o
+bin/vector_test: $(ODIR)/vector_test.o $(ODIR)/T.o $(ODIR)/vector.o $(ODIR)/pair.o
 	$(CC) -o $@ $^ $(CFLAGS)
 
 vector_test: bin/vector_test

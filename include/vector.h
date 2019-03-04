@@ -1,3 +1,6 @@
+#ifndef VECTOR_H
+#define VECTOR_H
+
 #include "assert.h"
 #include "defs.h"
 #include "stdlib.h"
@@ -46,3 +49,5 @@ void vector_push_at(vector v, typeT val, int p);
 void vector_clear(vector);
 
 size_t vector_size(vector);
+
+#endif
