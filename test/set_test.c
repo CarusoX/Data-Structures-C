@@ -7,19 +7,16 @@ int main() {
     clock_t begin = clock();
     set s = set_init(Int);
     srand(time(NULL));
-    fore(i, 0, 100000) {
-        int r = rand() % 2;
-        int l = rand();
-        if(r) {
-            insert(s, i);
-        } else {
-            erase(s, i);
-        }
+    int x = 1, y = 2, z = 3, w = 4;
+    fore(i, 0, 10000) {
+        int r = rand() % 10000;
+        insert(s, r);
     }
-    clock_t end = clock();
-    double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("%lf segundos\n", time_spent);
-    printf("%d elements inside\n", size(s));
-    clear(s);
+    fore(i, 0, 100000) {
+        int r = rand() % 10000;
+        erase(s, r);
+        check(s);
+    }
+    destroy(s);
     return 0;
 }

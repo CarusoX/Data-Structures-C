@@ -9,7 +9,7 @@ int main() {
 	typeT get1, get2;
 	pair p;
     
-	p = pair_init(&x, &y, Int, Int);
+	p = pair_init(Int, Int, &x, &y);
   
     set_first(p, x);
 	set_second(p, y);
@@ -17,22 +17,16 @@ int main() {
 	get1 = get_first(p);
 	get2 = get_second(p);
 
-	assert(get1->value.i == x);
-	assert(get2->value.i == y);
+	destroy(p);
 
-	clear(p);
+	p = pair_init(Char, Char, &c, &s);
 
-	p = pair_init(&c, &s, Char, Char);
-
-	pair_set(p, &c, &s);
+	set(p, c, s);
 
 	get1 = get_first(p);
 	get2 = get_second(p);
 
-	assert(c == get1->value.c);
-	assert(s == get2->value.c);
-
-	clear(p);
+	destroy(p);
   
     return 0;
 }

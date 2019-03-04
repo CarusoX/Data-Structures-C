@@ -3,7 +3,6 @@
 
 typedef struct T* typeT;
 
-#include "assert.h"
 #include "defs.h"
 #include "stdlib.h"
 #include "T.h"
@@ -27,22 +26,22 @@ struct Pair {
 	typeT (*get_first)(pair);
 	/* Get the second element of the pair */
 	typeT (*get_second)(pair);
-	/* Get the type of the first element */
-	int (*get_first_type)(pair);
-	/* Get the type of the second element */
-	int (*get_second_type)(pair);
-	/* Clear pair */
-	void (*clear)(pair);
+	/* Destroy pair */
+	void (*destroy)(pair);
 };
 
-pair pair_init(void* v1, void* v2, int t1, int t2);
+pair pair_init(int t1, int t2, void* v1, void* v2);
+
 void pair_set(pair p, void* v1, void* v2);
+
 void pair_set_first(pair p, void* value);
+
 void pair_set_second(pair p, void* value);
+
 typeT pair_get_first(pair p);
+
 typeT pair_get_second(pair p);
-int pair_get_first_type(pair p);
-int pair_get_second_type(pair p);
-void pair_clear(pair p);
+
+void pair_destroy(pair p);
 
 #endif

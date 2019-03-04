@@ -1,5 +1,4 @@
 #include "stack.h"
-#define fore(i, s, e) for(int i = s; i < e; i++)
 
 stack stack_init(int type){
 

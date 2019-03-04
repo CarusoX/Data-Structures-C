@@ -1,6 +1,5 @@
+#include "assert.h"
 #include "vector.h"
-
-#define fore(i, s, e) for(int i = s; i < e; i++)
 
 vector vector_init(int type, size_t cap) {
     vector v = (vector)malloc(sizeof(d_array));
@@ -17,6 +16,7 @@ vector vector_init(int type, size_t cap) {
     v->at = vector_at;
     v->clear = vector_clear;
     v->size = vector_size;
+    v->destroy = vector_destroy;
     return v;
 }
 
@@ -37,9 +37,22 @@ void vector_push_back(vector v, void* elem) {
 
 void vector_pop_back(vector v) {
     assert(0 < v->sz);
-    v->sz--;
-    free(v->array[v->sz]);
-    v->array[v->sz] = NULL;
+
+    // Clear last element
+    destroy(v->array[--v->sz]);
+}
+
+void vector_set_at(vector v, void* elem, int p){
+    assert(0 <= p && p < (int)v->sz);
+
+    // Create struct T
+    typeT t = T_init(v->type, elem);
+
+    // Clear current position
+    destroy(v->array[p]);
+
+    // Assign new struct T
+    v->array[p] = t;
 }
 
 typeT vector_at(vector v, int p) {
@@ -47,22 +60,20 @@ typeT vector_at(vector v, int p) {
     return v->array[p];
 }
 
-void vector_set_at(vector v, typeT val, int p){
-    assert(0 <= p && p < (int)v->sz);
-    v->array[p] = val;
+size_t vector_size(vector v) {
+    return v->sz;
 }
 
 void vector_clear(vector v) {
-    fore(i, 0, v->sz) {
-        clear(v->array[i]);
-    }
-    free(v->array);
-    v->array = NULL;
-    free(v);
-    v = NULL;
+    // Clear what we stored
+    fore(i, 0, v->sz) destroy(v->array[i]);
+    v->sz = 0;
 }
 
-size_t vector_size(vector v) {
-    return v->sz;
+void vector_destroy(vector v) {
+    clear(v);
+    // Free vector
+    free(v->array); v->array = NULL;
+    free(v); v = NULL;
 }
 
