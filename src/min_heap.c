@@ -123,5 +123,5 @@ size_t heap_size(heap h){
 
 void heap_destroy(heap h){
 	vector_clear(h->v);
-	free(h);
+	free(h); h = NULL;
 }
