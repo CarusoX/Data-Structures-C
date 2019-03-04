@@ -1,6 +1,6 @@
 #include "stack.h"
 
-stack stack_init(int type){
+stack stack_init(int type) {
 
 	stack s = (stack)malloc(sizeof(struct Stack));
 	
@@ -12,7 +12,6 @@ stack stack_init(int type){
 	s->top = stack_top;
 	s->push = stack_push;
 	s->pop = stack_pop;
-	s->stype = stack_type;
 	s->empty = stack_empty;
 	s->size = stack_size;
 	s->clear = stack_clear;
@@ -20,7 +19,7 @@ stack stack_init(int type){
 	return s;
 }
 
-void stack_push(stack s, void* elem){
+void stack_push(stack s, void* elem) {
 	assert(s != NULL);
 	list n = (list)malloc(sizeof(struct List));
 	typeT t = T_init(s->type, elem);
@@ -30,41 +29,35 @@ void stack_push(stack s, void* elem){
 	s->sz++;
 }
 
-void stack_pop(stack s){
+void stack_pop(stack s) {
 	assert(s != NULL);
 	list n = s->first;
 	s->first = n->next;
-	n->next = NULL;
 	destroy(n->elem);
 	free(n); n = NULL;
 	s->sz--;
 }
 
-typeT stack_top(stack s){
+typeT stack_top(stack s) {
 	assert(s != NULL);
 	return s->first->elem;
 }
 
-int stack_type(stack s){
-	assert(s != NULL);
-	return s->type;
-}
-
-size_t stack_size(stack s){
+size_t stack_size(stack s) {
 	assert(s != NULL);
 	return s->sz;
 }
 
-int stack_empty(stack s){
+int stack_empty(stack s) {
 	assert(s != NULL);
 	return (s->sz == 0);
 }
 
-void stack_clear(stack s){
-  fore(i, 0, s->sz) stack_pop(s);
+void stack_clear(stack s) {
+	fore(i, 0, s->sz) pop(s);
 }
 
-void stack_destroy(stack s){
-  stack_clear(s);
-  free(s); s = NULL;
+void stack_destroy(stack s) {
+	clear(s);
+	free(s); s = NULL;
 }

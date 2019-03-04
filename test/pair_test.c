@@ -1,6 +1,4 @@
-
 #include "pair.h"
-
 
 int main() {
 	char c = 'A', s = 'B';

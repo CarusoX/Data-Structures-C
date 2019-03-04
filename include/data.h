@@ -7,16 +7,15 @@ typedef struct Pair* pair;
 typedef struct Vector* vector;
 typedef struct RBTree* tree;
 typedef struct Set* set;
-typedef struct Set* set;
 typedef struct Stack* stack;
 typedef struct T* typeT;
 typedef struct Vector* vector;
 
 #include "assert.h"
 #include "defs.h"
-#include "stdbool.h"
 #include "stdio.h"
 #include "stdlib.h"
+#include "time.h"
 
 #include "list.h"
 #include "min_heap.h"

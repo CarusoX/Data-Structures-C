@@ -1,8 +1,5 @@
 #include "set.h"
-#include "defs.h"
-#include "stdlib.h"
-#include "stdio.h"
-#include "time.h"
+
 int main() {
     clock_t begin = clock();
     set s = set_init(Int);
@@ -12,7 +9,7 @@ int main() {
         int r = rand() % 10000;
         insert(s, r);
     }
-    fore(i, 0, 100000) {
+    fore(i, 0, 10000) {
         int r = rand() % 10000;
         erase(s, r);
         check(s);
@@ -21,6 +18,6 @@ int main() {
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
     printf("%lf segundos\n", time_spent);
     printf("%lu elements inside\n", size(s));
-    clear(s);
+    destroy(s);
     return 0;
 }

@@ -1,5 +1,3 @@
-#include "stdlib.h"
-#include "stdio.h"
 #include "stack.h"
 
 int main() {
@@ -22,15 +20,15 @@ int main() {
 	printf("Needs to be equal to: \n");
 
 	// This should return 1, 2 and 3 //
-	printf("%d, ", top(s).i);
+	printf("%d, ", top(s)->value.i);
 	pop(s);
-	printf("%d, ", top(s).i);
+	printf("%d, ", top(s)->value.i);
 	pop(s);
-	printf("%d, ", top(s).i);
+	printf("%d, ", top(s)->value.i);
 
-	// If top and pop worked, here we test top_type and size //
-	printf("Type should be 3: %d \n", stype(s));
-	printf("Size also should be 3: %lu \n", size(s));
+	printf("Size also should be 1: %lu \n", size(s));
+
+	pop(s);
 
 	// Freeing all the data allocated //
 	stack_destroy(s);

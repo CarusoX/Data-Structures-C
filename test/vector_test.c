@@ -1,9 +1,5 @@
-#include "defs.h"
-#include "stdlib.h"
-#include "stdio.h"
 #include "vector.h"
 #include "pair.h"
-
 
 int main() {
     vector v = vector_init(Vector, 1);

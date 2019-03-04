@@ -1,4 +1,3 @@
-
 #include "min_heap.h"
 
 int main(){

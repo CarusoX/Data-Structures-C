@@ -20,8 +20,6 @@ struct Stack {
 	void (*push)(stack, void*);
 	/* Pop the last element in the stack */
 	void (*pop)(stack);
-	/* Returns the type of the stack */
-	int (*stype)(stack);
 	/* Returns true if the stack is empty */
 	int (*empty)(stack);
 	/* Returns stack size */
@@ -38,8 +36,6 @@ void stack_push(stack s, void* elem);
 void stack_pop(stack s);
 
 typeT stack_top(stack s);
-
-int stack_type(stack s);
 
 int stack_empty(stack s);
 
