@@ -1,10 +1,7 @@
-#include "assert.h"
-#include "defs.h"
-#include "stdlib.h"
-#include "vector.h"
-#include "T.h"
+#ifndef HEAP_H
+#define HEAP_H
 
-typedef struct Heap* heap;
+#include "T.h"
 
 struct Heap {
 	vector v;
@@ -14,30 +11,31 @@ struct Heap {
 
 	// Allocate functions
 
+	/* Swaps an element up to satisfy the min_heap condition */
 	void (*bubble_up)(heap);
-
+	/* Swaps an element down to satisfy the min_heap condition */
 	void (*bubble_down)(heap h);
-
+	/* Adds an element to the heap */
 	void (*add)(heap, typeT);
-
+	/* Removes the min element of the heap */
 	void (*remove)(heap);
-
+	/* Returns the position of an element's parent */
 	int (*parent)(int);
-
+	/* Returns the data of an element's parent */
 	typeT (*parent_data)(heap, int);
-
+	/* Returns the position of an element's left children */
 	int (*left)(int);
-
+	/* Returns the data of an element's left children */
 	typeT (*left_data)(heap, int);
-
+	/* Returns the position of an element's right children */
 	int (*right)(int);
-
+	/* Returns the data of an element's right children */
 	typeT (*right_data)(heap, int);
-
+	/* Swaps two elements in the tree */
 	void (*swap)(heap, int, int);
-
+	/* Returns the first element in the tree */
 	typeT (*get_min)(heap);
-
+	/* Returns the size of the heap */
 	size_t (*size)(heap);
 };
 
@@ -71,3 +69,4 @@ size_t heap_size(heap h);
 
 void heap_destroy(heap h);
 
+#endif

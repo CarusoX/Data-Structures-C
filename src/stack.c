@@ -22,27 +22,27 @@ stack stack_init(int type){
 
 void stack_push(stack s, void* elem){
 	assert(s != NULL);
-	list n = (list)malloc(sizeof(struct StackList));
+	list n = (list)malloc(sizeof(struct List));
 	typeT t = T_init(s->type, elem);
-	n -> elem = t;
-	n -> next = s->first;
+	n->elem = t;
+	n->next = s->first;
 	s->first = n;
-	(s -> sz)++;
+	s->sz++;
 }
 
 void stack_pop(stack s){
 	assert(s != NULL);
-	list n = s -> first;
-	s -> first = n -> next;
-	n -> next = NULL;
+	list n = s->first;
+	s->first = n->next;
+	n->next = NULL;
 	destroy(n->elem);
 	free(n); n = NULL;
-	(s -> sz)--;
+	s->sz--;
 }
 
-data stack_top(stack s){
+typeT stack_top(stack s){
 	assert(s != NULL);
-	return ((s -> first) -> elem) -> value;
+	return s->first->elem;
 }
 
 int stack_type(stack s){
@@ -52,10 +52,10 @@ int stack_type(stack s){
 
 size_t stack_size(stack s){
 	assert(s != NULL);
-	return s -> sz;
+	return s->sz;
 }
 
-bool stack_empty(stack s){
+int stack_empty(stack s){
 	assert(s != NULL);
 	return (s->sz == 0);
 }

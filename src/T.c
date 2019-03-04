@@ -1,4 +1,3 @@
-#include "assert.h"
 #include "T.h"
 
 typeT T_init(int iType, void* value) {
@@ -127,7 +126,11 @@ int T_less_than(typeT a, typeT b) {
         case Double:
             return a->value.d + 0.0000001 < b->value.d;
         case Pair:
-            return T_less_than(a->value.p->first, b->value.p->first);
+            if(!equals(get_first(a->value.p), get_first(b->value.p))) {
+                return less_than(get_first(a->value.p), get_first(b->value.p));
+            } else {
+                return less_than(get_second(a->value.p), get_second(b->value.p));
+            }
         case P_Int:
             return *(a->value.p_i) > *(b->value.p_i);
         case P_Char:
@@ -171,6 +174,12 @@ int T_greater_than(typeT a, typeT b) {
             return a->value.f > b->value.f + 0.00001;
         case Double:
             return a->value.d > b->value.d + 0.0000001;
+        case Pair:
+            if(!equals(get_first(a->value.p), get_first(b->value.p))) {
+                return greater_than(get_first(a->value.p), get_first(b->value.p));
+            } else {
+                return greater_than(get_second(a->value.p), get_second(b->value.p));
+            }
         case P_Int:
             return *(a->value.p_i) > *(b->value.p_i);
         case P_Char:
@@ -214,6 +223,9 @@ int T_equals(typeT a, typeT b) {
             return abs(a->value.f - b->value.f) < 0.00001;
         case Double:
             return abs(a->value.d - b->value.d) < 0.0000001;
+        case Pair:
+            return (equals(a->value.p->first, b->value.p->first)
+                 && equals(a->value.p->second, b->value.p->second));
         case P_Int:
             return *(a->value.p_i) == *(b->value.p_i);
         case P_Char:

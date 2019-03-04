@@ -9,11 +9,11 @@ CFLAGS := -g -I$(IDIR) -std=c99
 VPATH = $(SDIR):$(TDIR)
 
 # Headers
-_LIB = data.h defs.h pair.h rbtree.h set.h stack.h T.h vector.h
+_LIB = data.h defs.h min_heap.h pair.h rbtree.h set.h stack.h T.h vector.h
 LIB = $(patsubst %, $(IDIR)/%, $(_LIB))
 
 # Objects
-_OBJ = pair.o rbtree.o set.o stack.o T.o vector.o
+_OBJ = min_heap.o pair.o rbtree.o set.o stack.o T.o vector.o
 OBJ = $(patsubst %, $(ODIR)/%, $(_OBJ))
 
 # Tests

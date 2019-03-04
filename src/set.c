@@ -1,4 +1,3 @@
-#include "assert.h"
 #include "set.h"
 
 set set_init(int type) {

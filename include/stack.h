@@ -1,19 +1,7 @@
-#include "assert.h"
-#include <stdbool.h>
-#include "defs.h"
-#include "stdlib.h"
+#ifndef STACK_H
+#define STACK_H
+
 #include "T.h"
-
-typedef struct StackList* list;
-typedef struct Stack* stack;
-
-// Struct containing the data of only one node //
-struct StackList {
-	/* The data of the node */
-	typeT elem;
-	/* Pointer to next element */
-	list next;
-};
 
 // Struct with all the nodes //
 struct Stack {
@@ -27,7 +15,7 @@ struct Stack {
 	// Function pointers //
 
 	/* Returns top element in stack */
-	data (*top)(stack);
+	typeT (*top)(stack);
 	/* Push an element in the stack */
 	void (*push)(stack, void*);
 	/* Pop the last element in the stack */
@@ -35,7 +23,7 @@ struct Stack {
 	/* Returns the type of the stack */
 	int (*stype)(stack);
 	/* Returns true if the stack is empty */
-	bool (*empty)(stack);
+	int (*empty)(stack);
 	/* Returns stack size */
 	size_t (*size)(stack);
 	/* Frees the memory used by the stack */
@@ -49,14 +37,16 @@ void stack_push(stack s, void* elem);
 
 void stack_pop(stack s);
 
-data stack_top(stack s);
+typeT stack_top(stack s);
 
 int stack_type(stack s);
 
-bool stack_empty(stack s);
+int stack_empty(stack s);
 
 size_t stack_size(stack s);
 
 void stack_clear(stack s);
 
 void stack_destroy(stack s);
+
+#endif

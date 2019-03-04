@@ -1,11 +1,7 @@
 #ifndef SET_H
 #define SET_H
 
-typedef struct RBTree* tree;
-
-#include "rbtree.h"
-
-typedef struct Set* set;
+#include "T.h"
 
 struct Set {
     // Data //

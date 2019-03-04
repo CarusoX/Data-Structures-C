@@ -1,4 +1,3 @@
-#include "assert.h"
 #include "pair.h"
 
 pair pair_init(int t1, int t2, void* v1, void* v2) {

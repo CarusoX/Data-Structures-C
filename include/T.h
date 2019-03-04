@@ -1,10 +1,7 @@
 #ifndef T_H
 #define T_H
 
-#include "defs.h"
 #include "data.h"
-
-typedef struct T* typeT;
 
 struct T {
     

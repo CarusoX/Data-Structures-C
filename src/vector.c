@@ -1,4 +1,3 @@
-#include "assert.h"
 #include "vector.h"
 
 vector vector_init(int type, size_t cap) {

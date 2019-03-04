@@ -1,10 +1,6 @@
 #ifndef RBTREE_H
 #define RBTREE_H
 
-typedef struct T* typeT;
-
-#include "defs.h"
-#include "stdlib.h"
 #include "T.h"
 
 /*

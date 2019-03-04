@@ -14,7 +14,7 @@ heap heap_init(int type, size_t max_sz){
 	// Allocate functions
 	h->bubble_up = heap_bubble_up;
 	h->bubble_down = heap_bubble_down;
-	h->add = heap_remove;
+	h->add = heap_add;
 	h->parent = heap_parent;
 	h->parent_data = heap_parent_data;
 	h->left = heap_left;
@@ -31,7 +31,7 @@ heap heap_init(int type, size_t max_sz){
 void heap_bubble_up(heap h){
 
 	typeT actual = vector_at(h->v, h->sz);
-	typeT parent = vector_at((h->v), heap_parent_data(h, h->sz));
+	typeT parent = vector_at((h->v), heap_parent_data(h, h->sz)->value.i);
 	
 	int position = h->sz;
 	
@@ -39,7 +39,7 @@ void heap_bubble_up(heap h){
 		heap_swap(h, position, heap_parent(position));
 		position = heap_parent(position);
 		actual = parent;
-		parent = heap_parent_data(h, actual);
+		parent = heap_parent_data(h, actual->value.i);
 	}
 }
 

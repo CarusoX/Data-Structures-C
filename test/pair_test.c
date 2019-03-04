@@ -1,5 +1,4 @@
-#include "stdlib.h"
-#include "stdio.h"
+
 #include "pair.h"
 
 
@@ -28,7 +27,7 @@ int main() {
 
 	destroy(p);
   
-	printf("OK");
+	printf("OK\n");
 
     return 0;
 }

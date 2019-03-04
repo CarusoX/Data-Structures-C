@@ -1,13 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-typedef struct T* typeT;
-
-#include "defs.h"
-#include "stdlib.h"
 #include "T.h"
-
-typedef struct Vector* vector;
 
 typedef struct Vector {
     // Data //

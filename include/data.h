@@ -1,13 +1,30 @@
 #ifndef DATA_H
 #define DATA_H
 
+typedef struct Heap* heap;
+typedef struct List* list;
 typedef struct Pair* pair;
 typedef struct Vector* vector;
+typedef struct RBTree* tree;
 typedef struct Set* set;
+typedef struct Set* set;
+typedef struct Stack* stack;
+typedef struct T* typeT;
+typedef struct Vector* vector;
 
+#include "assert.h"
+#include "defs.h"
+#include "stdbool.h"
+#include "stdio.h"
+#include "stdlib.h"
+
+#include "list.h"
+#include "min_heap.h"
 #include "pair.h"
-#include "vector.h"
+#include "rbtree.h"
 #include "set.h"
+#include "stack.h"
+#include "vector.h"
 
 typedef union Data {
 	unsigned char uc;               //  1
@@ -26,9 +43,11 @@ typedef union Data {
     pair p;                         // 14
     vector v;                       // 15
     set s;                          // 16
-	int* p_i;                       // 17
-	char* p_c;                      // 18
-	void* p_v;                      // 19
+    stack st;                       // 17
+    list l;                         // 18
+	int* p_i;                       // 19
+	char* p_c;                      // 20
+	void* p_v;                      // 21
 } data;
 
 typedef enum types {
@@ -49,9 +68,11 @@ typedef enum types {
     Pair,                           // 14
     Vector,                         // 15
     Set,                            // 16
-    P_Int,                          // 17
-    P_Char,                         // 18
-    P_Void,                         // 19
+    Stack,                          // 17
+    List,                           // 18
+    P_Int,                          // 19
+    P_Char,                         // 20
+    P_Void,                         // 21
 } type;
 
 #endif

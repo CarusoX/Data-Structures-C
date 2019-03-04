@@ -1,14 +1,7 @@
 #ifndef PAIR_H
 #define PAIR_H
 
-typedef struct T* typeT;
-
-#include "defs.h"
-#include "stdlib.h"
 #include "T.h"
-
-// Pointer to struct pair //
-typedef struct Pair* pair;
 
 struct Pair {
 	// Pointers to structs T containing the data of the pair //
