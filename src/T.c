@@ -1,3 +1,4 @@
+#include "assert.h"
 #include "T.h"
 
 typeT T_init(int iType, void* value) {
@@ -9,7 +10,7 @@ typeT T_init(int iType, void* value) {
     t->less_than = T_less_than;
     t->greater_than = T_greater_than;
     t->equals = T_equals;
-    t->clear = T_clear;
+    t->destroy = T_destroy;
 
     T_set_type(t, iType);
     T_set_value(t, value);
@@ -217,22 +218,22 @@ int T_equals(typeT a, typeT b) {
             return *(a->value.p_i) == *(b->value.p_i);
         case P_Char:
             return *(a->value.p_c) == *(b->value.p_c);
-        return 0;
+        default:
+            return 0;
     };
 }
 
-void T_clear(typeT t) {
+void T_destroy(typeT t) {
     switch (t->iType) {
         case Pair:
-            clear(t->value.p);
+            destroy(t->value.p);
             break;
         case Vector:
-            clear(t->value.v);
+            destroy(t->value.v);
             break;
         case Set:
-            clear(t->value.s);
+            destroy(t->value.s);
             break;
     };
-    free(t);
-    t = NULL;
+    free(t); t = NULL;
 }

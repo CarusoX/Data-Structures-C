@@ -11,7 +11,7 @@ struct Set {
     // Data //
 
     /* Pointer to an RBTree */
-    tree bst;
+    tree root;
     /* Data type */
     int type;
     /* Size of tree */
@@ -25,18 +25,30 @@ struct Set {
     void (*erase)(set, void*);
     /* Finds element and returns pointer to it, NULL otherwise */
     tree (*find)(set, void*);
-    /* Clear set */
-    void (*clear)(set);
+    /* Check if set is balanced according to RBTree */
+    void (*check)(set);
     /* Get size */
     size_t (*size)(set);
+    /* Clear set */
+    void (*clear)(set);
+    /* Destroy set */
+    void (*destroy)(set);
 };
 
 set set_init(int);
+
 void set_insert(set, void*);
+
 void set_erase(set, void*);
+
 tree set_find(set, void*);
-void set_clear(set);
-void set_checker(set);
+
+void set_check(set);
+
 size_t set_size(set);
+
+void set_clear(set);
+
+void set_destroy(set);
 
 #endif

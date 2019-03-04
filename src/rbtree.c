@@ -1,5 +1,7 @@
+#include "assert.h"
 #include "rbtree.h"
-#include "stdio.h"
+
+// Relatives functions
 
 static tree tree_parent(tree a) {
     return a->parent;
@@ -8,7 +10,7 @@ static tree tree_parent(tree a) {
 static tree tree_grandparent(tree a) {
     tree p = tree_parent(a);
     if(!p) return NULL;
-    return tree_parent(p);
+    return p->parent;
 }
 
 static tree tree_sibling(tree a) {
@@ -24,6 +26,16 @@ static tree tree_uncle(tree a) {
     return tree_sibling(p);
 }
 
+static int tree_is_left_child(tree a) {
+    return a == a->parent->left;
+}
+
+static int tree_is_right_child(tree a) {
+    return a == a->parent->right;
+} 
+
+// Rotation functions
+
 static void tree_rotateL(tree P) { 
     tree Q = P->right;
     P->right = Q->left;
@@ -32,7 +44,7 @@ static void tree_rotateL(tree P) {
     if(P->parent == NULL) {
         Q->parent = NULL;
     }
-    else if(P->parent->right == P) {
+    else if(tree_is_right_child(P)) {
         P->parent->right = Q;
         Q->parent = P->parent;
     } else {
@@ -52,7 +64,7 @@ static void tree_rotateR(tree Q) {
     if(Q->parent == NULL) {
         P->parent = NULL;
     }
-    else if(Q->parent->left == Q) {
+    else if(tree_is_left_child(Q)) {
         Q->parent->left = P;
         P->parent = Q->parent;
     } else{
@@ -63,6 +75,8 @@ static void tree_rotateR(tree Q) {
     P->right = Q;
     Q->parent = P;
 }
+
+///////////////////////////////////////////////////////////////////////////////////
 
 tree tree_create(typeT t) {
     tree g = (tree)malloc(sizeof(struct RBTree));
@@ -96,10 +110,8 @@ void tree_clear(tree cur) {
     // Clear right
     tree_clear(cur->right);
     // Free node
-    free(cur->node);
-    cur->node = NULL;
-    free(cur);
-    cur = NULL;
+    free(cur->node); cur->node = NULL;
+    free(cur); cur = NULL;
 }
 
 tree tree_insert(tree p, tree c) {
@@ -164,20 +176,17 @@ void tree_balance(tree t) {
 }
 
 void tree_erase_case1(tree n) {
-    if(n->parent)
-        tree_erase_case2(n);
+    if(n->parent) tree_erase_case2(n);
 }
 
 void tree_erase_case2(tree n) {
     tree s = tree_sibling(n);
 
-    if(s != NULL && s->color == R) {
+    if(s->color == R) {
         n->parent->color = R;
         s->color = B;
-        if(n == n->parent->left)
-            tree_rotateL(n->parent);
-        else
-            tree_rotateR(n->parent);
+        if(tree_is_left_child(n)) tree_rotateL(n->parent);
+        else tree_rotateR(n->parent);
     }
     tree_erase_case3(n);
 }
@@ -185,12 +194,8 @@ void tree_erase_case2(tree n) {
 void tree_erase_case3(tree n) {
     tree s = tree_sibling(n);
 
-    if((n->parent->color == B)
-    && (!s || s->color == B)
-    && (!s || !s->left || s->left->color == B)
-    && (!s || !s->right || s->right->color == B)) {
-        if(s)
-            s->color = R;
+    if((n->parent->color == B) && (s->color == B) && (!s->left || s->left->color  == B) && (!s->right || s->right->color == B)) {
+        s->color = R;
         tree_erase_case1(n->parent);
     } else {
         tree_erase_case4(n);
@@ -200,12 +205,8 @@ void tree_erase_case3(tree n) {
 void tree_erase_case4(tree n) {
     tree s = tree_sibling(n);
 
-    if((n->parent->color == R)
-    && (!s || s->color == B)
-    && (!s || !s->left || s->left->color == B)
-    && (!s || !s->right || s->right->color == B)) {
-        if(s)
-            s->color = R;
+    if((n->parent->color == R) && (s->color == B) && (!s->left  || s->left->color  == B) && (!s->right || s->right->color == B)) {
+        s->color = R;
         n->parent->color = B;
     } else {
         tree_erase_case5(n);
@@ -215,22 +216,14 @@ void tree_erase_case4(tree n) {
 void tree_erase_case5(tree n) {
     tree s = tree_sibling(n);
 
-    if(s && s->color == B) {
-        if ((n == n->parent->left)
-        && (!s->right || s->right->color == B)
-        && (s->left && s->left->color == R)) {
-            if(s)
-                s->color = R;
-            if(s && s->left)
-                s->left->color = B;
+    if(s->color == B) {
+        if ((tree_is_left_child(n)) && (!s->right || s->right->color == B) && (s->left->color == R)) {
+            s->color = R;
+            s->left->color = B;
             tree_rotateR(s);
-        } else if ((n == n->parent->right)
-        && (!s->left || s->left->color == B)
-        && (s->right && s->right->color == R)) {
-            if(s)
-                s->color = R;
-            if(s && s->right)
-                s->right->color = B;
+        } else if ((tree_is_right_child(n)) && (!s->left || s->left->color == B) && (s->right->color == R)) {
+            s->color = R;
+            s->right->color = B;
             tree_rotateL(s);
         }
     }
@@ -241,16 +234,14 @@ void tree_erase_case6(tree n)
 {
     tree s = tree_sibling(n);
 
-    if(s) s->color = n->parent->color;
+    s->color = n->parent->color;
     n->parent->color = B;
 
-    if (n == n->parent->left) {
-        if(s && s->right)
-            s->right->color = B;
+    if (tree_is_left_child(n)) {
+        s->right->color = B;
         tree_rotateL(n->parent);
     } else {
-        if(s && s->left)
-            s->left->color = B;
+        s->left->color = B;
         tree_rotateR(n->parent);
     }
 }
@@ -258,28 +249,26 @@ void tree_erase_case6(tree n)
 void tree_replace(tree t, tree s) {
     s->parent = t->parent;
     if(t->parent)
-        if(t == t->parent->left)
-            t->parent->left = s;
-        else
-            t->parent->right = s;
+        if(tree_is_left_child(t)) t->parent->left = s;
+        else t->parent->right = s;
 }
 
-int tree_checker(tree t, int* c, int d) {
-    int r = 0;
+int tree_check(tree t, int* c, int d) {
     if(t == NULL) {
         if(*c == 0) *c = d;
         else assert(*c == d);
-        return r;
+        return 0;
     }
-    r = 1;
+
+    int r = 1;
+
     if(t->color == R) {
         if(t->left) assert(t->left->color != R);
         if(t->right) assert(t->right->color != R);
-        r += tree_checker(t->left, c, d);
-        r += tree_checker(t->right, c, d);
-    } else {
-        r += tree_checker(t->left, c, d + 1);
-        r += tree_checker(t->right, c, d + 1);
-    }
+    } else d++;
+
+    r += tree_check(t->left, c, d);
+    r += tree_check(t->right, c, d);
+
     return r;
 }

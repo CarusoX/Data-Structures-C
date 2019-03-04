@@ -3,7 +3,6 @@
 
 typedef struct T* typeT;
 
-#include "assert.h"
 #include "defs.h"
 #include "stdlib.h"
 #include "T.h"
@@ -28,14 +27,16 @@ typedef struct Vector {
     void (*push_back)(vector, void*);
     /* Remove element */
     void (*pop_back)(vector);
+    /* Set value of element at index i */
+    void (*set_at)(vector, typeT, int);
     /* Get element at index i */
     typeT (*at)(vector, int);
-    /**/
-    void (*set_at)(vector, typeT, int);
-    /* Clear vector */
-    void (*clear)(vector);
     /* Get size */
     size_t (*size)(vector);
+    /* Clear vector */
+    void (*clear)(vector);
+    /* Destroy vector */
+    void (*destroy)(vector);
 } d_array;
 
 vector vector_init(int, size_t);
@@ -44,12 +45,13 @@ void vector_push_back(vector, void*);
 
 void vector_pop_back(vector);
 
+void vector_set_at(vector, void*, int);
+
 typeT vector_at(vector, int);
-
-void vector_set_at(vector v, typeT val, int p);
-
-void vector_clear(vector);
 
 size_t vector_size(vector);
 
+void vector_clear(vector);
+
+void vector_destroy(vector);
 #endif
