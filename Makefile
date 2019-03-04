@@ -9,15 +9,15 @@ CFLAGS := -g -I$(IDIR) -std=c99
 VPATH = $(SDIR):$(TDIR)
 
 # Headers
-_LIB = data.h defs.h pair.h rbtree.h set.h T.h vector.h
+_LIB = data.h defs.h pair.h rbtree.h set.h stack.h T.h vector.h
 LIB = $(patsubst %, $(IDIR)/%, $(_LIB))
 
 # Objects
-_OBJ = pair.o rbtree.o set.o T.o vector.o
+_OBJ = pair.o rbtree.o set.o stack.o T.o vector.o
 OBJ = $(patsubst %, $(ODIR)/%, $(_OBJ))
 
 # Tests
-_TEST = pair_test.o set_test.o vector_test.o
+_TEST = pair_test.o set_test.o stack.o vector_test.o
 TEST = $(patsubst %, $(ODIR)/%, $(_TEST))
 
 $(ODIR)/%.o: %.c $(LIB)

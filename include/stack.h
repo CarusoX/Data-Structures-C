@@ -33,7 +33,7 @@ struct Stack {
 	/* Pop the last element in the stack */
 	void (*pop)(stack);
 	/* Returns the type of the stack */
-	int (*type)(stack);
+	int (*stype)(stack);
 	/* Returns true if the stack is empty */
 	bool (*empty)(stack);
 	/* Returns stack size */

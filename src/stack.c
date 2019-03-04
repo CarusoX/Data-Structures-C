@@ -12,7 +12,7 @@ stack stack_init(int type){
 	s->top = stack_top;
 	s->push = stack_push;
 	s->pop = stack_pop;
-	s->top_type = stack_top_type;
+	s->stype = stack_type;
 	s->empty = stack_empty;
 	s->size = stack_size;
 	s->clear = stack_clear;

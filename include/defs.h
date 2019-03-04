@@ -15,7 +15,7 @@
 #define push(x, y)          x->push(x, &y)
 #define pop(x)              x->pop(x)
 #define top(x)              x->top(x)
-#define top_type(x)         x->top_type(x)
+#define stype(x)            x->stype(x)
 #define set(x, y, z)        x->set(x, &y, &z)
 #define set_first(x, y)     x->set_first(x, &y)
 #define set_second(x, y)    x->set_second(x, &y)
