@@ -6,7 +6,7 @@ int main() {
 	typeT get1, get2;
 	pair p;
     
-	p = pair_init(Int, Int);
+	p = pair_init(Int, Int, &x, &y);
   
     set_first(p, x);
 	set_second(p, y);
@@ -16,7 +16,7 @@ int main() {
 
 	destroy(p);
 
-	p = pair_init(Char, Char);
+	p = pair_init(Char, Char, &c, &s);
 
 	set(p, c, s);
 

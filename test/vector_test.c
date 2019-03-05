@@ -11,7 +11,7 @@ int main() {
         typeT t = at(v, i);
         vector s = (t->value.v);
         fore(j, 0, 10) {
-            pair p = pair_init(Int, Int); set(p, i, j);
+            pair p = pair_init(Int, Int, &i, &j);
             push_back(s, p);
         }
     }
