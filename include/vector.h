@@ -18,11 +18,11 @@ typedef struct Vector {
     // Functions //
 
     /* Add element */
-    void (*push_back)(vector, void*);
-    /* Remove element */
-    void (*pop_back)(vector);
+    void (*push_back)(vector, typeT);
     /* Set value of element at index i */
     void (*set_at)(vector, typeT, int);
+    /* Remove element */
+    void (*pop_back)(vector);
     /* Get element at index i */
     typeT (*at)(vector, int);
     /* Get size */
@@ -35,11 +35,11 @@ typedef struct Vector {
 
 vector vector_init(int, size_t);
 
-void vector_push_back(vector, void*);
+void vector_push_back(vector, typeT);
 
 void vector_pop_back(vector);
 
-void vector_set_at(vector, void*, int);
+void vector_set_at(vector, typeT, int);
 
 typeT vector_at(vector, int);
 

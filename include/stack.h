@@ -17,7 +17,7 @@ struct Stack {
 	/* Returns top element in stack */
 	typeT (*top)(stack);
 	/* Push an element in the stack */
-	void (*push)(stack, void*);
+	void (*push)(stack, typeT);
 	/* Pop the last element in the stack */
 	void (*pop)(stack);
 	/* Returns true if the stack is empty */
@@ -31,18 +31,18 @@ struct Stack {
 
 stack stack_init(int type);
 
-void stack_push(stack s, void* elem);
+void stack_push(stack, typeT);
 
-void stack_pop(stack s);
+void stack_pop(stack);
 
-typeT stack_top(stack s);
+typeT stack_top(stack);
 
-int stack_empty(stack s);
+int stack_empty(stack);
 
-size_t stack_size(stack s);
+size_t stack_size(stack);
 
-void stack_clear(stack s);
+void stack_clear(stack);
 
-void stack_destroy(stack s);
+void stack_destroy(stack);
 
 #endif

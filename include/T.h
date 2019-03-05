@@ -17,8 +17,8 @@ struct T {
     void (*set_type)(typeT, int);
     /* Set value */
     void (*set_value)(typeT, void*);
-    /* Get type */
-    int (*get_type)(typeT);
+    /* Copy a struct */
+    typeT (*copy)(typeT);
     /* Less than */
     int (*less_than)(typeT, typeT);
     /* Greater than */
@@ -35,7 +35,7 @@ void T_set_type(typeT, int);
 
 void T_set_value(typeT, void*);
 
-int T_get_type(typeT);
+typeT T_copy(typeT);
 
 int T_less_than(typeT, typeT);
 

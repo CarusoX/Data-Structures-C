@@ -22,9 +22,7 @@ set set_init(int type) {
     return s;
 }
 
-void set_insert(set s, void* elem) {
-    // Create the struct T
-    typeT t = T_init(s->type, elem);
+void set_insert(set s, typeT t) {
 
     if(!s->sz) {
         // Empty tree
@@ -64,9 +62,7 @@ void set_insert(set s, void* elem) {
     }
 }
 
-void set_erase(set s, void* elem) {
-    // Create the struct T
-    typeT t = T_init(s->type, elem);
+void set_erase(set s, typeT t) {
 
     // Find element
     tree r = tree_find(s->root, t);
@@ -136,8 +132,7 @@ void set_erase(set s, void* elem) {
     s->sz--;
 }
 
-tree set_find(set s, void* elem) {
-    typeT t = T_init(s->type, elem);
+tree set_find(set s, typeT t) {
     tree r = tree_find(s->root, t);
     if(equals(r->node, t)) {
         free(t); t = NULL;

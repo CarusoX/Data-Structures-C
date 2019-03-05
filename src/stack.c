@@ -19,10 +19,9 @@ stack stack_init(int type) {
 	return s;
 }
 
-void stack_push(stack s, void* elem) {
+void stack_push(stack s, typeT t) {
 	assert(s != NULL);
 	list n = (list)malloc(sizeof(struct List));
-	typeT t = T_init(s->type, elem);
 	n->elem = t;
 	n->next = s->first;
 	s->first = n;

@@ -11,6 +11,7 @@ vector vector_init(int type, size_t cap) {
 
     // Allocate functions
     v->push_back = vector_push_back;
+    v->set_at = vector_set_at;
     v->pop_back = vector_pop_back;
     v->at = vector_at;
     v->clear = vector_clear;
@@ -19,14 +20,11 @@ vector vector_init(int type, size_t cap) {
     return v;
 }
 
-void vector_push_back(vector v, void* elem) {
+void vector_push_back(vector v, typeT t) {
     if(v->sz == v->capacity) {
         v->capacity *= 2;
         v->array = (typeT*)realloc(v->array, v->capacity * sizeof(typeT));
     }
-
-    // Create struct T
-    typeT t = T_init(v->type, elem);
 
     // Assign struct T
     v->array[v->sz] = t;
@@ -34,24 +32,22 @@ void vector_push_back(vector v, void* elem) {
     v->sz++;
 }
 
-void vector_pop_back(vector v) {
-    assert(0 < v->sz);
-
-    // Clear last element
-    destroy(v->array[--v->sz]);
-}
-
-void vector_set_at(vector v, void* elem, int p){
+void vector_set_at(vector v, typeT t, int p){
     assert(0 <= p && p < (int)v->sz);
-
-    // Create struct T
-    typeT t = T_init(v->type, elem);
 
     // Clear current position
     destroy(v->array[p]);
 
     // Assign new struct T
     v->array[p] = t;
+}
+
+void vector_pop_back(vector v) {
+    assert(0 < v->sz);
+
+    // Clear last element
+    destroy(v->array[v->sz - 1]);
+    v->sz--;
 }
 
 typeT vector_at(vector v, int p) {

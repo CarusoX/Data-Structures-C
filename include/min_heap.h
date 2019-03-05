@@ -3,70 +3,55 @@
 
 #include "T.h"
 
+#define MAX 0
+#define MIN 1
+
+#define oper(a, b) greater_than(a, b)
+
 struct Heap {
 	vector v;
 	int type;
-	size_t max_sz;
-	size_t sz;
 
 	// Allocate functions
 
-	/* Swaps an element up to satisfy the min_heap condition */
-	void (*bubble_up)(heap);
-	/* Swaps an element down to satisfy the min_heap condition */
-	void (*bubble_down)(heap h);
 	/* Adds an element to the heap */
-	void (*add)(heap, typeT);
+	void (*insert)(heap, typeT);
 	/* Removes the min element of the heap */
-	void (*remove)(heap);
-	/* Returns the position of an element's parent */
-	int (*parent)(int);
-	/* Returns the data of an element's parent */
-	typeT (*parent_data)(heap, int);
-	/* Returns the position of an element's left children */
-	int (*left)(int);
-	/* Returns the data of an element's left children */
-	typeT (*left_data)(heap, int);
-	/* Returns the position of an element's right children */
-	int (*right)(int);
-	/* Returns the data of an element's right children */
-	typeT (*right_data)(heap, int);
-	/* Swaps two elements in the tree */
-	void (*swap)(heap, int, int);
+	void (*erase)(heap);
 	/* Returns the first element in the tree */
-	typeT (*get_min)(heap);
+	typeT (*top)(heap);
 	/* Returns the size of the heap */
 	size_t (*size)(heap);
+	/* Clear heap */
+	void (*clear)(heap);
+	/* Destroy heap */
+	void (*destroy)(heap);
 };
 
-heap heap_init(int type, size_t max_sz);
+heap heap_init(int, int);
 
-void heap_bubble_up(heap h);
+void heap_insert(heap, typeT);
 
-void heap_bubble_down(heap h);
+void heap_erase(heap);
 
-void heap_add(heap h, typeT value);
+void heap_lift(heap);
 
-void heap_remove(heap h);
+void heap_sink(heap);
 
-int heap_parent(int pos);
+typeT heap_parent(heap, int);
 
-typeT heap_parent_data(heap h, int pos);
+typeT heap_left(heap, int);
 
-int heap_left(int pos);
+typeT heap_right(heap, int);
 
-typeT heap_left_data(heap h, int pos);
+void heap_swap(heap, int, int);
 
-int heap_right(int pos);
+typeT heap_top(heap);
 
-typeT heap_right_data(heap h, int pos);
+size_t heap_size(heap);
 
-void heap_swap(heap h, int pos1, int pos2);
+void heap_clear(heap);
 
-typeT heap_get_min(heap h);
-
-size_t heap_size(heap h);
-
-void heap_destroy(heap h);
+void heap_destroy(heap);
 
 #endif

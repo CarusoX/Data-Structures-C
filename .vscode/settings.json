@@ -1,7 +1,22 @@
 {
     "files.associations": {
         "set.h": "c",
-        "vector.h": "c"
+        "vector.h": "c",
+        "array": "c",
+        "initializer_list": "c",
+        "string_view": "c",
+        "utility": "c",
+        "vector": "c",
+        "unordered_map": "c",
+        "list": "c",
+        "*.tcc": "cpp",
+        "istream": "c",
+        "optional": "c",
+        "ostream": "c",
+        "ratio": "c",
+        "system_error": "c",
+        "type_traits": "c",
+        "t.h": "c"
     },
     "files.exclude": {
         "**/.git": false

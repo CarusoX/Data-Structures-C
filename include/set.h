@@ -16,11 +16,11 @@ struct Set {
     // Functions //
 
     /* Insert element */
-    void (*insert)(set, void*);
+    void (*insert)(set, typeT);
     /* Erase element */
-    void (*erase)(set, void*);
+    void (*erase)(set, typeT);
     /* Finds element and returns pointer to it, NULL otherwise */
-    tree (*find)(set, void*);
+    tree (*find)(set, typeT);
     /* Check if set is balanced according to RBTree */
     void (*check)(set);
     /* Get size */
@@ -33,11 +33,11 @@ struct Set {
 
 set set_init(int);
 
-void set_insert(set, void*);
+void set_insert(set, typeT);
 
-void set_erase(set, void*);
+void set_erase(set, typeT);
 
-tree set_find(set, void*);
+tree set_find(set, typeT);
 
 void set_check(set);
 

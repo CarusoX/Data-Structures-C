@@ -1,127 +1,119 @@
 #include "min_heap.h"
 
-heap heap_init(int type, size_t max_sz){
+heap heap_init(int type, int opt) {
 	heap h = (heap)malloc(sizeof(struct Heap));
 
 	h->type = type;
-	h->max_sz = max_sz;
-	h->sz = 0;
 
-	vector v = vector_init(type, max_sz);
+	vector v = vector_init(type, 1);
 	h->v = v;
 
-
 	// Allocate functions
-	h->bubble_up = heap_bubble_up;
-	h->bubble_down = heap_bubble_down;
-	h->add = heap_add;
-	h->parent = heap_parent;
-	h->parent_data = heap_parent_data;
-	h->left = heap_left;
-	h->left_data = heap_left_data;
-	h->right = heap_right;
-	h->right_data = heap_right_data;
-	h->swap = heap_swap;
-	h->get_min = heap_get_min;
+	h->insert = heap_insert;
+	h->erase = heap_erase;
+	h->top = heap_top;
 	h->size = heap_size;
+	h->clear = heap_clear;
+	h->destroy = heap_destroy;
+
+	if(opt == MIN) {
+		#undef oper
+		#define oper(a, b) less_than(a, b)
+	}
 
 	return h;
 }
 
-void heap_bubble_up(heap h){
-
-	typeT actual = vector_at(h->v, h->sz);
-	typeT parent = vector_at((h->v), heap_parent_data(h, h->sz)->value.i);
-	
-	int position = h->sz;
-	
-	while(T_greater_than(actual, parent) && h->sz > 0 && heap_parent(h->sz) > 0){
-		heap_swap(h, position, heap_parent(position));
-		position = heap_parent(position);
-		actual = parent;
-		parent = heap_parent_data(h, actual->value.i);
-	}
-}
-
-void heap_bubble_down(heap h){
-	
-	int pos = 0, lpos, rpos, minpos;
-	
-	typeT min_children, left, right;
-	
-	typeT actual = vector_at(h->v, pos);
-	lpos = heap_left(pos);
-	rpos = heap_right(pos);
-	left = heap_left_data(h, pos);
-	right = heap_right_data(h, pos);
-
-	while(T_less_than(left, actual) || T_less_than(right, actual)){
-		if(T_less_than(left, right)){
-			minpos = lpos;
-			min_children = vector_at(h->v, lpos);
-		} else {
-			minpos = rpos;
-			min_children = vector_at(h->v, rpos);
-		}
-		if(T_less_than(min_children, actual)){
-			heap_swap(h, pos, minpos);
-			pos = minpos;
-		}
-	}
-}
-
-void heap_add(heap h, typeT value){
-	(h->sz)++;
+void heap_insert(heap h, typeT value) {
 	vector_push_back(h->v, value);
-	heap_bubble_up(h);
+	heap_lift(h);
 }
 
-void heap_remove(heap h){
-	heap_swap(h, 0, h->sz);
-	vector_pop_back(h->v);
-	(h->sz)--;
-	heap_bubble_down(h);
+void heap_erase(heap h){
+	heap_swap(h, 0, size(h->v) - 1);
+	pop_back(h->v);
+	if(size(h->v)) heap_sink(h);
 }
 
-int heap_parent(int pos){
-	return (pos - 1) / 2;
+void heap_lift(heap h) {
+	int i = size(h->v) - 1;
+
+	typeT cur = at(h->v, i);
+	typeT p = heap_parent(h, i);
+
+	while(p && oper(cur, p)) {
+		heap_swap(h, i, (i - 1) / 2);
+		i = (i - 1) / 2;
+		cur = at(h->v, i);
+		p = heap_parent(h, i);
+	}
 }
 
-typeT heap_parent_data(heap h, int pos){
-	return vector_at(h->v, (pos - 1) / 2);
+void heap_sink(heap h){
+	int i = 0;
+
+	typeT cur = at(h->v, i);
+	typeT left = heap_left(h, i);
+	typeT right = heap_right(h, i);
+
+	while((left && oper(left, cur)) || (right && oper(right, cur))) {
+		if(!right || oper(left, right)) {
+			heap_swap(h, i, 2 * i + 1);
+			i = 2 * i + 1;
+			cur = at(h->v, i);
+			left = heap_left(h, i);
+			right = heap_right(h, i);
+		} else {
+			heap_swap(h, i, 2 * (i + 1));
+			i = 2 * (i + 1);
+			cur = at(h->v, i);
+			left = heap_left(h, i);
+			right = heap_right(h, i);
+		}
+	}
 }
 
-int heap_left(int pos){
-	return 2 * pos + 1;
+typeT heap_parent(heap h, int p) {
+	if(0 < p)
+		return at(h->v, (p - 1) / 2);
+	else
+		return NULL;
 }
 
-typeT heap_left_data(heap h, int pos){
-	return vector_at(h->v, 2 * pos + 1);
+typeT heap_left(heap h, int p) {
+	if(2 * p + 1 < size(h->v))
+		return at(h->v, 2 * p + 1);
+	else
+		return NULL;
 }
 
-int heap_right(int pos){
-	return 2 * pos + 2;
+typeT heap_right(heap h, int p) {
+	if(2 * (p + 1) < size(h->v))
+		return at(h->v, 2 * (p + 1));
+	else
+		return NULL;
 }
 
-typeT heap_right_data(heap h, int pos){
-	return vector_at(h->v, 2 * pos + 2);
+void heap_swap(heap h, int i, int j) {
+	typeT t1 = copy(at(h->v, i));
+	typeT t2 = copy(at(h->v, j));
+	set_at(h->v, t1, j);
+	set_at(h->v, t2, i);
 }
 
-void heap_swap(heap h, int pos1, int pos2){
-	typeT temp = vector_at(h->v, pos1);
-	vector_set_at(h->v, vector_at(h->v, pos2), pos1);
-	vector_set_at(h->v, temp, pos2);
-}
-
-typeT heap_get_min(heap h){
-	return vector_at(h->v, 0);
+typeT heap_top(heap h){
+	return at(h->v, 0);
 }
 
 size_t heap_size(heap h){
-	return h->sz;
+	return size(h->v);
+}
+
+void heap_clear(heap h) {
+	clear(h->v);
 }
 
 void heap_destroy(heap h){
-	vector_clear(h->v);
+	destroy(h->v);
 	free(h); h = NULL;
 }

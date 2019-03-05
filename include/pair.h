@@ -23,7 +23,7 @@ struct Pair {
 	void (*destroy)(pair);
 };
 
-pair pair_init(int t1, int t2, void* v1, void* v2);
+pair pair_init(int t1, int t2);
 
 void pair_set(pair p, void* v1, void* v2);
 

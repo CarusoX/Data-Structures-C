@@ -1,11 +1,11 @@
 #include "pair.h"
 
-pair pair_init(int t1, int t2, void* v1, void* v2) {
+pair pair_init(int t1, int t2) {
 
 	pair p = (pair)malloc(sizeof(struct Pair));
 
-	p->first = T_init(t1, v1);
-	p->second = T_init(t2, v2);
+	p->first = NULL;
+	p->second = NULL;
 	
 	// Allocate functions
 	p->set = pair_set;

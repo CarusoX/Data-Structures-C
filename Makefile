@@ -38,6 +38,9 @@ pair_test: $(BDIR)/pair_test
 stack_test: $(BDIR)/stack_test
 	$(BDIR)/stack_test
 
+heap_test: $(BDIR)/heap_test
+	$(BDIR)/heap_test
+
 %.valgrind: $(BDIR)/%
 	valgrind --show-reachable=yes --leak-check=full $(BDIR)/$(subst .valgrind,,$@)
 

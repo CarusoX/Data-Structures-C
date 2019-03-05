@@ -5,7 +5,7 @@ typeT T_init(int iType, void* value) {
 
     t->set_type = T_set_type;
     t->set_value = T_set_value;
-    t->get_type = T_get_type;
+    t->copy = T_copy;
     t->less_than = T_less_than;
     t->greater_than = T_greater_than;
     t->equals = T_equals;
@@ -87,18 +87,27 @@ void T_set_value(typeT t, void* value) {
     };
 }
 
-int T_get_type(typeT t) {
-    return t->iType;
+typeT T_copy(typeT a) {
+    assert(a != NULL);
+    typeT t = (typeT)malloc(sizeof(struct T));
+    t->iType = a->iType;
+    t->value = a->value;
+
+    t->set_type = T_set_type;
+    t->set_value = T_set_value;
+    t->copy = T_copy;
+    t->less_than = T_less_than;
+    t->greater_than = T_greater_than;
+    t->equals = T_equals;
+    t->destroy = T_destroy;
 }
 
 int T_less_than(typeT a, typeT b) {
-    int aType = T_get_type(a);
-    int bType = T_get_type(b);
 
-    assert(aType != 0);
-    assert(aType == bType);
+    assert(a->iType != 0);
+    assert(a->iType == b->iType);
 
-    switch(aType) {
+    switch(a->iType) {
         case UChar:
             return a->value.uc < b->value.uc;
         case SChar:
@@ -141,13 +150,11 @@ int T_less_than(typeT a, typeT b) {
 }
 
 int T_greater_than(typeT a, typeT b) {
-    int aType = T_get_type(a);
-    int bType = T_get_type(b);
 
-    assert(aType != 0);
-    assert(aType == bType);
+    assert(a->iType != 0);
+    assert(a->iType == b->iType);
 
-    switch(aType) {
+    switch(a->iType) {
         case UChar:
             return a->value.uc > b->value.uc;
         case SChar:
@@ -190,13 +197,10 @@ int T_greater_than(typeT a, typeT b) {
 }
 
 int T_equals(typeT a, typeT b) {
-    int aType = T_get_type(a);
-    int bType = T_get_type(b);
+    assert(a->iType != 0);
+    assert(a->iType == b->iType);
 
-    assert(aType != 0);
-    assert(aType == bType);
-
-    switch(aType) {
+    switch(a->iType) {
         case UChar:
             return a->value.uc == b->value.uc;
         case SChar:
