@@ -17,8 +17,8 @@ typedef struct Queue {
 	/* Insert an element in a desired position */
 	void(*queue_insert)(queue q, typeT elem, int pos);
 	/* Returns the first element in the queue */
-	typeT(*first)();
-};
+	typeT(*qfirst)(queue);
+}a;
 
 queue queue_init(int type);
 
