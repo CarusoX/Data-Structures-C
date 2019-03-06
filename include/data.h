@@ -5,6 +5,7 @@ typedef struct Heap* heap;
 typedef struct List* list;
 typedef struct Pair* pair;
 typedef struct Vector* vector;
+typedef struct Queue* queue;
 typedef struct RBTree* tree;
 typedef struct Set* set;
 typedef struct Stack* stack;
@@ -17,9 +18,10 @@ typedef struct Vector* vector;
 #include "stdlib.h"
 #include "time.h"
 
+#include "heap.h"
 #include "list.h"
-#include "min_heap.h"
 #include "pair.h"
+#include "queue.h"
 #include "rbtree.h"
 #include "set.h"
 #include "stack.h"
@@ -43,10 +45,12 @@ typedef union Data {
     vector v;                       // 15
     set s;                          // 16
     stack st;                       // 17
-    list l;                         // 18
-	int* p_i;                       // 19
-	char* p_c;                      // 20
-	void* p_v;                      // 21
+    queue q;                        // 18
+    list l;                         // 19
+    heap h;                         // 20
+	int* p_i;                       // 21
+	char* p_c;                      // 22
+	void* p_v;                      // 23
 } data;
 
 typedef enum types {
@@ -68,10 +72,12 @@ typedef enum types {
     Vector,                         // 15
     Set,                            // 16
     Stack,                          // 17
-    List,                           // 18
-    P_Int,                          // 19
-    P_Char,                         // 20
-    P_Void,                         // 21
+    Queue,                          // 18
+    List,                           // 19
+    Heap,                           // 20
+    P_Int,                          // 21
+    P_Char,                         // 22
+    P_Void,                         // 23
 } type;
 
 #endif

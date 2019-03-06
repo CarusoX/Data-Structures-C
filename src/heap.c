@@ -1,4 +1,4 @@
-#include "min_heap.h"
+#include "heap.h"
 
 heap heap_init(int type, int opt) {
 	heap h = (heap)malloc(sizeof(struct Heap));

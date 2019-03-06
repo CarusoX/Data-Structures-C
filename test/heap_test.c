@@ -1,4 +1,4 @@
-#include "min_heap.h"
+#include "heap.h"
 
 int main(){
 
