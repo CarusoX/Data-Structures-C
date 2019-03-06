@@ -3,7 +3,7 @@
 
 #include "T.h"
 
-typedef struct Queue {
+struct Queue {
     size_t sz;
 	int type;
     list first;
@@ -18,7 +18,7 @@ typedef struct Queue {
 	void(*insert)(queue q, typeT elem, int pos);
 	/* Returns the first element in the queue */
 	typeT(*first_elem)(queue);
-}a;
+};
 
 queue queue_init(int type);
 
