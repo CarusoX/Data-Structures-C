@@ -15,9 +15,9 @@ typedef struct Queue {
 	/* Removes the last element in the queue */
 	void(*dequeue)(queue);
 	/* Insert an element in a desired position */
-	void(*queue_insert)(queue q, typeT elem, int pos);
+	void(*insert)(queue q, typeT elem, int pos);
 	/* Returns the first element in the queue */
-	typeT(*qfirst)(queue);
+	typeT(*first_elem)(queue);
 }a;
 
 queue queue_init(int type);

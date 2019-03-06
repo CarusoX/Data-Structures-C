@@ -8,7 +8,8 @@ queue queue_init(int type){
 	
 	q->enqueue = queue_enqueue;
 	q->dequeue = queue_dequeue;
-	q->qfirst = queue_first;
+	q->insert = queue_insert;
+	q->first_elem = queue_first;
 
 	return q;
 }
