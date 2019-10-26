@@ -6,6 +6,7 @@ queue queue_init(int type){
 	q->type = type;
 	q->sz = 0;
 	
+	// Allocate functions
 	q->enqueue = queue_enqueue;
 	q->dequeue = queue_dequeue;
 	q->insert = queue_insert;
@@ -25,11 +26,13 @@ void queue_enqueue(queue q, typeT elem){
 
 void queue_dequeue(queue q){
 	assert(q != NULL);
-	list l = q->first;
-	q->first = l->next;
-	l->next = NULL;
-	free(l); l = NULL;
-	q->sz--;
+	if(q->first != NULL) {
+		list l = q->first;
+		q->first = l->next;
+		l->next = NULL;
+		free(l); l = NULL;
+		q->sz--;
+	}
 }
 
 void queue_insert(queue q, typeT elem, int pos){
@@ -50,6 +53,7 @@ void queue_insert(queue q, typeT elem, int pos){
 
 typeT queue_first(queue q){
 	assert(q != NULL);
+	assert(q->first != NULL);
 	return q->first->elem;
 }
 

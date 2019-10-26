@@ -25,3 +25,5 @@
 #define size(x)             x->size(x)
 #define stype(x)            x->stype(x)
 #define top(x)              x->top(x)
+#define enqueue(x, y)       x->enqueue(x, T_init(x->type, &y))
+#define dequeue(x)          x->dequeue(x)

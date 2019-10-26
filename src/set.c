@@ -10,7 +10,6 @@ set set_init(int type) {
     s->sz = 0;
 
     // Allocate functions
-
     s->insert = set_insert;
     s->erase = set_erase;
     s->find = set_find;

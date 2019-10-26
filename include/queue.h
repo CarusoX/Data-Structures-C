@@ -9,7 +9,6 @@ struct Queue {
     list first;
 
 	// Allocate functions
-
 	/* Adds an element to the queue */
 	void(*enqueue)(queue, typeT);
 	/* Removes the last element in the queue */

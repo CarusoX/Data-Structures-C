@@ -16,9 +16,9 @@
         "ratio": "c",
         "system_error": "c",
         "type_traits": "c",
-        "t.h": "c"
-    },
-    "files.exclude": {
-        "**/.git": false
+        "t.h": "c",
+        "stack.h": "c",
+        "queue.h": "c",
+        "data.h": "c"
     }
 }
